@@ -1,0 +1,3064 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flávia | Planejamento Financeiro & Educação</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================
+       DESIGN SYSTEM & CSS VARIABLES
+       ========================================== */
+    :root {
+      --bg-color: #08070c;
+      --bg-card: rgba(20, 18, 30, 0.7);
+      --bg-card-hover: rgba(28, 25, 42, 0.9);
+      --border-card: rgba(255, 255, 255, 0.05);
+      --border-active: rgba(139, 92, 246, 0.4);
+      
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      
+      /* Gradients & Accents */
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      --accent-gradient: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+      --emerald-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --gold-gradient: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+      
+      --primary: #a855f7;
+      --primary-rgb: 168, 85, 247;
+      --accent: #ec4899;
+      --accent-blush: #fda4af;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --gold: #fbbf24;
+      
+      --font-title: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+      --shadow-glow: 0 0 25px rgba(168, 85, 247, 0.25);
+      
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --radius-xl: 40px;
+      
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Light Mode Variables */
+    body.light-mode {
+      --bg-color: #faf9f6; /* Warm elegant white */
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-card-hover: rgba(255, 255, 255, 0.98);
+      --border-card: rgba(0, 0, 0, 0.05);
+      --border-active: rgba(168, 85, 247, 0.3);
+      
+      --text-primary: #1c1929;
+      --text-secondary: #52525b;
+      --text-muted: #8b92a0;
+      
+      --primary: #9333ea;
+      --primary-rgb: 147, 51, 234;
+      --accent: #db2777;
+      --accent-blush: #fbcfe8;
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 10px 30px rgba(147, 51, 234, 0.05);
+      --shadow-lg: 0 20px 40px rgba(147, 51, 234, 0.08);
+      --shadow-glow: 0 0 20px rgba(147, 51, 234, 0.12);
+    }
+
+    /* ==========================================
+       BASE & RESET STYLES
+       ========================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: var(--transition);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-color);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(var(--primary-rgb), 0.2);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(var(--primary-rgb), 0.4);
+    }
+
+    /* ==========================================
+       NAVIGATION & HEADER
+       ========================================== */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      backdrop-filter: blur(20px);
+      background-color: rgba(8, 7, 12, 0.8);
+      border-bottom: 1px solid var(--border-card);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      transition: var(--transition);
+    }
+
+    body.light-mode .top-nav {
+      background-color: rgba(250, 249, 246, 0.8);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+    }
+
+    .brand-name {
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      font-weight: 800;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.2rem;
+    }
+
+    .nav-link-item {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-link-item:hover, .nav-link-item.active {
+      color: var(--text-primary);
+    }
+
+    .nav-link-item::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -6px;
+      left: 0;
+      background: var(--primary-gradient);
+      transition: var(--transition);
+    }
+
+    .nav-link-item:hover::after, .nav-link-item.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .btn-theme {
+      background: none;
+      border: 1px solid var(--border-card);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-theme:hover {
+      background-color: rgba(255,255,255,0.05);
+      border-color: var(--primary);
+    }
+
+    body.light-mode .btn-theme:hover {
+      background-color: rgba(0,0,0,0.03);
+    }
+
+    .btn-primary {
+      padding: 0.7rem 1.4rem;
+      border-radius: var(--radius-sm);
+      background: var(--primary-gradient);
+      color: white !important;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
+    }
+
+    .btn-primary:hover {
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-1px);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      z-index: 110;
+    }
+
+    /* ==========================================
+       TICKER BOLSAS & INDICADORES (INFINITO)
+       ========================================== */
+    .ticker-wrap {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      height: 36px;
+      background-color: rgba(12, 11, 20, 0.9);
+      border-bottom: 1px solid var(--border-card);
+      z-index: 99;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    body.light-mode .ticker-wrap {
+      background-color: rgba(245, 244, 240, 0.95);
+    }
+
+    .ticker-track {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker-slide 28s linear infinite;
+      gap: 3.5rem;
+      padding-left: 3.5rem;
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .ticker-label {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.5px;
+    }
+
+    .ticker-value {
+      font-family: var(--font-title);
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .ticker-change {
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .change-up { color: var(--success); }
+    .change-down { color: var(--danger); }
+    .change-neutral { color: var(--warning); }
+
+    @keyframes ticker-slide {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    /* ==========================================
+       CONTAINER SYSTEM & SECTIONS
+       ========================================== */
+    .section-container {
+      padding-top: 116px; /* 80px header + 36px ticker */
+    }
+
+    .portal-section {
+      display: none;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .portal-section.active {
+      display: block;
+    }
+
+    /* ==========================================
+       PORTAL HOME / HERO
+       ========================================== */
+    .hero-section {
+      min-height: calc(90vh - 80px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-overlay {
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, rgba(236,72,153,0.05) 50%, transparent 100%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      text-align: center;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-welcome-badge {
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+
+    .hero-content h2 {
+      font-family: var(--font-title);
+      font-size: 3.8rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-content h2 span {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-content p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.6rem;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid var(--border-card);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    body.light-mode .btn-secondary {
+      background: rgba(0,0,0,0.02);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--primary);
+    }
+
+    body.light-mode .btn-secondary:hover {
+      background: rgba(0,0,0,0.05);
+    }
+
+    /* ==========================================
+       SEÇÃO: QUEM É FLÁVIA (SOBRE)
+       ========================================== */
+    .about-section {
+      padding: 6rem 8rem;
+      border-top: 1px solid var(--border-card);
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+
+    body.light-mode .about-section {
+      background-color: rgba(147, 51, 234, 0.01);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text h3 {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .about-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .pillar-card {
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-card);
+      background-color: var(--bg-card);
+      text-align: center;
+    }
+
+    .pillar-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(168, 85, 247, 0.08);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .pillar-card h4 {
+      font-family: var(--font-title);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .pillar-card span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .about-image-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .about-quote {
+      font-family: var(--font-title);
+      font-size: 1.4rem;
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--text-primary);
+      border-left: 4px solid var(--primary);
+      padding-left: 1.5rem;
+    }
+
+    /* ==========================================
+       SEÇÃO: SERVIÇOS
+       ========================================== */
+    .services-section {
+      padding: 6rem 8rem;
+      border-top: 1px solid var(--border-card);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .section-header h3 {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.5px;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .service-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 380px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: transparent;
+      transition: var(--transition);
+    }
+
+    .service-card:hover::before {
+      background: var(--primary-gradient);
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-active);
+      background-color: var(--bg-card-hover);
+    }
+
+    .service-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(168, 85, 247, 0.08);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card h4 {
+      font-family: var(--font-title);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-cta-link {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .service-cta-link svg {
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-cta-link svg {
+      transform: translateX(4px);
+    }
+
+    /* ==========================================
+       SIMULADORES PORTAL PORT (HUB INTEGRADO)
+       ========================================== */
+    .simulators-section {
+      padding: 3rem 6rem;
+    }
+
+    .simulators-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    /* Hub Navigation Sidebar */
+    .sim-nav-sidebar {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-self: start;
+    }
+
+    .sim-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.8rem 1rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .sim-nav-item:hover {
+      color: var(--text-primary);
+      background-color: rgba(255,255,255,0.02);
+    }
+
+    body.light-mode .sim-nav-item:hover {
+      background-color: rgba(168, 85, 247, 0.04);
+    }
+
+    .sim-nav-item.active {
+      color: #ffffff;
+      background: var(--primary-gradient);
+      box-shadow: var(--shadow-glow);
+    }
+
+    body.light-mode .sim-nav-item.active {
+      color: white;
+    }
+
+    .sim-nav-item svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ==========================================
+       CONTACT / FOOTER SECTION
+       ========================================== */
+    .contact-section {
+      padding: 6rem 8rem;
+      border-top: 1px solid var(--border-card);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+    }
+
+    .contact-info h3 {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .contact-info p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-method-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .contact-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: rgba(168, 85, 247, 0.08);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-method-details span {
+      display: block;
+    }
+
+    .contact-method-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .contact-method-val {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .contact-form-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .input-text, .textarea-text {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-card);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    body.light-mode .input-text, body.light-mode .textarea-text {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    .input-text:focus, .textarea-text:focus {
+      border-color: var(--primary);
+      background-color: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.15);
+    }
+
+    .textarea-text {
+      height: 120px;
+      resize: none;
+    }
+
+    .portal-footer {
+      border-top: 1px solid var(--border-card);
+      padding: 3rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      background-color: rgba(0,0,0,0.2);
+    }
+
+    body.light-mode .portal-footer {
+      background-color: rgba(0,0,0,0.01);
+    }
+
+    /* ==========================================
+       REUSABLE DESIGN COMPONENTS FOR SIMULATORS
+       ========================================== */
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: transparent;
+      transition: var(--transition);
+    }
+
+    .card.primary-accent::before {
+      background: var(--primary-gradient);
+    }
+
+    .card.accent-rose::before {
+      background: var(--accent-gradient);
+    }
+
+    .card.emerald::before {
+      background: var(--emerald-gradient);
+    }
+
+    .card:hover {
+      background-color: var(--bg-card-hover);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* Sliders Custom Style */
+    .form-value-badge {
+      font-family: var(--font-title);
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.95rem;
+      background: rgba(var(--primary-rgb), 0.1);
+      padding: 0.15rem 0.6rem;
+      border-radius: 8px;
+    }
+
+    .range-input {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+      margin: 10px 0;
+      transition: var(--transition);
+    }
+
+    body.light-mode .range-input {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .range-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+      transition: var(--transition);
+      border: 2px solid white;
+    }
+
+    .range-input::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    /* Circular SVG Gauge for Thermometer */
+    .gauge-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .gauge-svg {
+      width: 200px;
+      height: 200px;
+      transform: rotate(-90deg);
+    }
+
+    .gauge-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.05);
+      stroke-width: 14;
+    }
+
+    body.light-mode .gauge-bg {
+      stroke: rgba(0, 0, 0, 0.05);
+    }
+
+    .gauge-fill {
+      fill: none;
+      stroke: url(#gauge-gradient);
+      stroke-width: 14;
+      stroke-linecap: round;
+      stroke-dasharray: 628;
+      stroke-dashoffset: 628;
+      transition: stroke-dashoffset 0.8s ease-out;
+    }
+
+    .gauge-text-container {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .gauge-score {
+      font-family: var(--font-title);
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.1rem;
+    }
+
+    .gauge-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      font-weight: 700;
+    }
+
+    .gauge-status {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.25rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50px;
+    }
+
+    .status-red { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+    .status-yellow { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+    .status-green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+
+    .tips-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .tip-item {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      background-color: rgba(255, 255, 255, 0.01);
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--primary);
+    }
+
+    body.light-mode .tip-item {
+      background-color: rgba(0, 0, 0, 0.01);
+    }
+
+    /* Dream selector */
+    .dream-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .dream-preset {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-card);
+      background-color: rgba(255, 255, 255, 0.01);
+      cursor: pointer;
+      text-align: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .dream-preset:hover, .dream-preset.active {
+      background-color: rgba(var(--primary-rgb), 0.08);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .dream-preset svg {
+      width: 26px;
+      height: 26px;
+      color: var(--primary);
+    }
+
+    .dream-preset span {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .chart-comparison-wrapper {
+      background-color: rgba(0,0,0,0.15);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    body.light-mode .chart-comparison-wrapper {
+      background-color: rgba(0,0,0,0.02);
+    }
+
+    .chart-bar-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .chart-bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .bar-label-area {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .bar-track {
+      height: 28px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    body.light-mode .bar-track {
+      background: rgba(0,0,0,0.04);
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fill-gray { background-color: var(--text-muted); }
+    .fill-gradient { background: var(--primary-gradient); }
+
+    .bar-text {
+      position: absolute;
+      right: 12px;
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+
+    .output-massive-value {
+      font-family: var(--font-title);
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-card {
+      background: rgba(168, 85, 247, 0.05);
+      border: 1px dashed rgba(168, 85, 247, 0.2);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .calc-row-summary {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-card);
+      padding: 0.75rem 0;
+      font-size: 0.95rem;
+    }
+    
+    .calc-row-summary:last-child {
+      border-bottom: none;
+    }
+
+    .calc-summary-label {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .calc-summary-val {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-family: var(--font-title);
+    }
+
+    /* Budget dynamic bar */
+    .budget-allocation-chart {
+      display: flex;
+      height: 48px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 1.5rem;
+      border: 2px solid var(--border-card);
+    }
+
+    .budget-allocation-slice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+      transition: width 0.5s ease-out;
+    }
+
+    .slice-essential { background: #6366f1; }
+    .slice-lifestyle { background: #ec4899; }
+    .slice-savings { background: #10b981; }
+
+    .budget-legend {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .legend-color-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    /* Milestones */
+    .milestones-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .milestone-badge-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-card);
+      background-color: rgba(255,255,255,0.01);
+      transition: var(--transition);
+      opacity: 0.5;
+    }
+
+    body.light-mode .milestone-badge-card {
+      background-color: rgba(0,0,0,0.01);
+    }
+
+    .milestone-badge-card.achieved {
+      opacity: 1;
+      border-color: rgba(16, 185, 129, 0.4);
+      background-color: rgba(16, 185, 129, 0.05);
+    }
+
+    .milestone-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .milestone-icon-container {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    body.light-mode .milestone-icon-container {
+      background-color: rgba(0,0,0,0.05);
+    }
+
+    .milestone-badge-card.achieved .milestone-icon-container {
+      background: var(--emerald-gradient);
+      color: white;
+    }
+
+    .milestone-info-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .milestone-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .milestone-desc {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .milestone-target {
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--success);
+    }
+
+    /* Quiz components */
+    .quiz-card {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .quiz-progress-bar {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    body.light-mode .quiz-progress-bar {
+      background: rgba(0,0,0,0.06);
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background: var(--primary-gradient);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .quiz-question-box h2 {
+      font-family: var(--font-title);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .quiz-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .quiz-option-button {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    body.light-mode .quiz-option-button {
+      background-color: rgba(0,0,0,0.01);
+    }
+
+    .quiz-option-button:hover {
+      background-color: rgba(168, 85, 247, 0.06);
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    body.light-mode .option-letter {
+      background: rgba(0,0,0,0.05);
+    }
+
+    .quiz-option-button:hover .option-letter {
+      background: var(--primary);
+      color: white;
+    }
+
+    .quiz-result-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .result-badge {
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      background: var(--primary-gradient);
+      color: white;
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-glow);
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+
+    .result-title {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .result-desc {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .action-button {
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: var(--primary-gradient);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .action-button:hover {
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-1px);
+    }
+
+    .investor-alloc-bar {
+      display: flex;
+      height: 24px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 1.5rem 0;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .investor-alloc-part {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+
+    .alloc-fixed { background: #6366f1; }
+    .alloc-variable { background: #ec4899; }
+    .alloc-multimarket { background: #f59e0b; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================
+       RESPONSIVE DESIGN BREAKPOINTS
+       ========================================== */
+    @media (max-width: 1024px) {
+      .top-nav {
+        padding: 0 2rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 116px;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-color);
+        border-bottom: 1px solid var(--border-card);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        box-shadow: var(--shadow-md);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero-section {
+        padding: 4rem 2rem;
+      }
+
+      .hero-content h2 {
+        font-size: 2.6rem;
+      }
+
+      .about-section, .services-section, .contact-section {
+        padding: 4rem 2rem;
+      }
+
+      .about-grid, .services-grid, .contact-grid, .simulators-layout, .grid-2, .grid-3, .dream-selector-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation -->
+  <header class="top-nav">
+    <div class="brand">
+      <div class="brand-logo">F</div>
+      <div class="brand-name">Flávia Finanças</div>
+    </div>
+    
+    <nav class="nav-links" id="navLinks">
+      <span class="nav-link-item active" onclick="switchSection('home')">Início</span>
+      <span class="nav-link-item" onclick="switchSection('about')">Quem é Flávia</span>
+      <span class="nav-link-item" onclick="switchSection('services')">Nossos Serviços</span>
+      <span class="nav-link-item" onclick="switchSection('simulators')">Simuladores Interativos</span>
+      <span class="nav-link-item" onclick="switchSection('contact')">Contato</span>
+    </nav>
+    
+    <div class="nav-actions">
+      <button class="btn-theme" onclick="toggleTheme()" aria-label="Toggle Theme">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      
+      <button class="btn-primary" onclick="switchSection('simulators')">Fazer Simulação</button>
+      
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Infinito Ticker de Bolsas e Indicadores -->
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <!-- Set 1 -->
+      <div class="ticker-item">
+        <span class="ticker-label">Ibovespa</span>
+        <span class="ticker-value">124.530 pts</span>
+        <span class="ticker-change change-up">▲ +0,42%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">Dólar</span>
+        <span class="ticker-value">R$ 5,24</span>
+        <span class="ticker-change change-down">▼ -0,15%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">Euro</span>
+        <span class="ticker-value">R$ 5,68</span>
+        <span class="ticker-change change-up">▲ +0,08%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">Selic</span>
+        <span class="ticker-value">10,50% a.a.</span>
+        <span class="ticker-change change-neutral">● Neutro</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">CDI (mês)</span>
+        <span class="ticker-value">0,84% a.m.</span>
+        <span class="ticker-change change-up">▲ +0,02%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">Poupança</span>
+        <span class="ticker-value">0,58% a.m.</span>
+        <span class="ticker-change change-neutral">● TR+0.5%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">IPCA (mês)</span>
+        <span class="ticker-value">+0,38%</span>
+        <span class="ticker-change change-up">▲ +0,04%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">S&P 500</span>
+        <span class="ticker-value">5.305 pts</span>
+        <span class="ticker-change change-up">▲ +0,25%</span>
+      </div>
+      
+      <!-- Set 2 (Duplicado para efeito de loop infinito perfeito) -->
+      <div class="ticker-item">
+        <span class="ticker-label">Ibovespa</span>
+        <span class="ticker-value">124.530 pts</span>
+        <span class="ticker-change change-up">▲ +0,42%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">Dólar</span>
+        <span class="ticker-value">R$ 5,24</span>
+        <span class="ticker-change change-down">▼ -0,15%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">Euro</span>
+        <span class="ticker-value">R$ 5,68</span>
+        <span class="ticker-change change-up">▲ +0,08%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">Selic</span>
+        <span class="ticker-value">10,50% a.a.</span>
+        <span class="ticker-change change-neutral">● Neutro</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">CDI (mês)</span>
+        <span class="ticker-value">0,84% a.m.</span>
+        <span class="ticker-change change-up">▲ +0,02%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">Poupança</span>
+        <span class="ticker-value">0,58% a.m.</span>
+        <span class="ticker-change change-neutral">● TR+0.5%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">IPCA (mês)</span>
+        <span class="ticker-value">+0,38%</span>
+        <span class="ticker-change change-up">▲ +0,04%</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">S&P 500</span>
+        <span class="ticker-value">5.305 pts</span>
+        <span class="ticker-change change-up">▲ +0,25%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-container">
+    
+    <!-- ==========================================
+         SEÇÃO: INÍCIO (HERO)
+         ========================================== -->
+    <section class="portal-section active" id="sec-home">
+      <div class="hero-section">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-welcome-badge">Planejamento & Educação</div>
+          <h2>Equilíbrio, Autonomia e <span>Liberdade Financeira</span></h2>
+          <p>
+            Um ambiente acolhedor e estratégico projetado para apoiar mulheres (e também homens) a construírem um relacionamento saudável com o dinheiro e planejarem o futuro sem ansiedade.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn-primary" style="padding: 0.9rem 2rem; font-size: 1rem;" onclick="switchSection('simulators')">Testar Simuladores Gratuitos</button>
+            <button class="btn-secondary" style="padding: 0.9rem 2rem; font-size: 1rem;" onclick="switchSection('about')">Conhecer a Flávia</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO: QUEM É FLÁVIA (SOBRE)
+         ========================================== -->
+    <section class="portal-section" id="sec-about">
+      <div class="about-section">
+        <div class="about-grid">
+          <div class="about-text">
+            <h3>Quem é Flávia?</h3>
+            <p>
+              Acredito profundamente que finanças não é sobre cortes rígidos e privações de bem-estar. Finanças é sobre <strong>escolhas conscientes</strong> que garantem a sua paz de espírito no presente e compram a sua liberdade de tempo no futuro.
+            </p>
+            <p>
+              Como planejadora financeira, atuo com foco em simplificar o complexo mundo das tabelas e investimentos. Crio um espaço seguro e sem julgamentos, focado na capacitação de mulheres (nosso público majoritário) e homens que desejam organizar receitas, liquidar dívidas estruturais e começar a investir de forma consistente.
+            </p>
+            
+            <div class="about-pillars">
+              <div class="pillar-card">
+                <div class="pillar-icon">🤝</div>
+                <h4>Empatia</h4>
+                <span>Espaço de escuta ativo e sem preconceito</span>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">💡</div>
+                <h4>Simplicidade</h4>
+                <span>Foco na linguagem limpa, sem jargões</span>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">📈</div>
+                <h4>Estratégia</h4>
+                <span>Planos sob medida focados na sua realidade</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="about-image-card">
+            <div class="about-quote">
+              "Dinheiro não é o objetivo final. Dinheiro é a ferramenta para que você possa viver a vida sob os seus próprios termos."
+            </div>
+            <div style="border-top: 1px solid var(--border-card); padding-top: 1.5rem;">
+              <h5 style="font-family: var(--font-title); font-size: 1.15rem; font-weight: 700;">Flávia</h5>
+              <span style="font-size: 0.85rem; color: var(--text-secondary);">Fundadora, Mentora & Planejadora Estratégica</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO: SERVIÇOS
+         ========================================== -->
+    <section class="portal-section" id="sec-services">
+      <div class="services-section">
+        <div class="section-header">
+          <h3>Como Posso Te Apoiar?</h3>
+          <p>Ofereço programas personalizados e mentorias sob medida para cada etapa da sua jornada patrimonial.</p>
+        </div>
+        
+        <div class="services-grid">
+          <div class="service-card">
+            <div>
+              <div class="service-icon-box">👤</div>
+              <h4>Mentoria Individual Customizada</h4>
+              <p>Planejamento de orçamento doméstico, blindagem com reserva de emergência e definição estratégica de metas de vida de curto, médio e longo prazo.</p>
+            </div>
+            <span class="service-cta-link" onclick="switchSection('contact')">Agendar Sessão Inicial &rarr;</span>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="service-icon-box">👥</div>
+              <h4>Planejamento para Casais</h4>
+              <p>Facilitação financeira inteligente para alinhar objetivos compartilhados, gerenciar receitas de forma colaborativa e planejar sonhos conjuntos sem conflitos.</p>
+            </div>
+            <span class="service-cta-link" onclick="switchSection('contact')">Saber Mais &rarr;</span>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="service-icon-box">🏫</div>
+              <h4>Workshops & Educação</h4>
+              <p>Capacitação e palestras corporativas interativas para descomplicar conceitos financeiros e incentivar a autonomia e a produtividade de equipes de trabalho.</p>
+            </div>
+            <span class="service-cta-link" onclick="switchSection('contact')">Solicitar Proposta &rarr;</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO: SIMULADORES (DASHBOARD INTEGRADO)
+         ========================================== -->
+    <section class="portal-section" id="sec-simulators">
+      <div class="simulators-section">
+        <div class="section-header" style="margin-bottom: 2rem;">
+          <h3>Seu Hub Financeiro Interativo</h3>
+          <p>Utilize nossas ferramentas dinâmicas para avaliar sua saúde de forma anônima e rápida.</p>
+        </div>
+        
+        <div class="simulators-layout">
+          <!-- Hub Navigation Sidebar -->
+          <aside class="sim-nav-sidebar">
+            <div class="sim-nav-item active" onclick="switchSimulatorTab('dashboard')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <span>Saúde / Termômetro</span>
+            </div>
+            
+            <div class="sim-nav-item" onclick="switchSimulatorTab('dream')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span>Realizador de Sonhos</span>
+            </div>
+            
+            <div class="sim-nav-item" onclick="switchSimulatorTab('retirement')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>Aposentadoria</span>
+            </div>
+            
+            <div class="sim-nav-item" onclick="switchSimulatorTab('budget')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/></svg>
+              <span>Orçamento 50/30/20</span>
+            </div>
+            
+            <div class="sim-nav-item" onclick="switchSimulatorTab('passive')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>Renda Passiva</span>
+            </div>
+            
+            <div class="sim-nav-item" onclick="switchSimulatorTab('profile-quiz')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/></svg>
+              <span>Perfil de Investidor</span>
+            </div>
+            
+            <div class="sim-nav-item" onclick="switchSimulatorTab('money-quiz')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span>Psicologia do Dinheiro</span>
+            </div>
+          </aside>
+
+          <!-- Simulator Dynamic Area -->
+          <div class="simulators-dynamic-area">
+            
+            <!-- SUB-TAB: TERMÔMETRO / DASHBOARD -->
+            <div class="tab-content active" id="tab-dashboard">
+              <div class="grid-2" style="margin-bottom: 2rem;">
+                <div class="card primary-accent">
+                  <div class="gauge-wrapper">
+                    <svg class="gauge-svg">
+                      <circle class="gauge-bg" cx="100" cy="100" r="80"></circle>
+                      <circle class="gauge-fill" id="thermometerGauge" cx="100" cy="100" r="80"></circle>
+                      <defs>
+                        <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="#ef4444" />
+                          <stop offset="50%" stop-color="#f59e0b" />
+                          <stop offset="100%" stop-color="#10b981" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div class="gauge-text-container">
+                      <span class="gauge-score" id="thermometerScore">5.0</span>
+                      <span class="gauge-label">Score</span>
+                      <span class="gauge-status" id="thermometerStatusLabel">Moderada</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <h4 style="font-family: var(--font-title); font-size: 1.25rem; margin-bottom: 1rem;">Autoavaliação de Saúde</h4>
+                  
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Reserva de Emergência</span>
+                      <span class="form-value-badge" id="val-emergency">R$ 0</span>
+                    </div>
+                    <input type="range" class="range-input" min="0" max="10" value="5" id="slider-emergency" oninput="updateThermometer()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Controle de Dívidas</span>
+                      <span class="form-value-badge" id="val-debts">Sem Dívidas</span>
+                    </div>
+                    <input type="range" class="range-input" min="0" max="10" value="5" id="slider-debts" oninput="updateThermometer()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Poupança Mensal</span>
+                      <span class="form-value-badge" id="val-savings">5%</span>
+                    </div>
+                    <input type="range" class="range-input" min="0" max="30" value="10" id="slider-savings" oninput="updateThermometer()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Investimentos</span>
+                      <span class="form-value-badge" id="val-invests">Iniciante</span>
+                    </div>
+                    <input type="range" class="range-input" min="0" max="10" value="3" id="slider-invests" oninput="updateThermometer()">
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid-2">
+                <div class="card accent-rose">
+                  <h4 style="font-family: var(--font-title); font-size: 1.15rem; margin-bottom: 0.75rem;">Diagnóstico Inicial</h4>
+                  <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;" id="thermometerDiagnostic">
+                    Sua pontuação financeira atual indica equilíbrio médio. Você tem certa estabilidade, mas há oportunidades de otimização no rendimento de seus ativos.
+                  </p>
+                </div>
+
+                <div class="card emerald">
+                  <h4 style="font-family: var(--font-title); font-size: 1.15rem; margin-bottom: 0.75rem;">Próximos Passos</h4>
+                  <div class="tips-list" id="thermometerTipsContainer"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SUB-TAB: REALIZADOR DE SONHOS -->
+            <div class="tab-content" id="tab-dream">
+              <div class="grid-2">
+                <div class="card primary-accent">
+                  <h4 style="font-family: var(--font-title); font-size: 1.3rem; margin-bottom: 1.5rem;">Configure seu Sonho</h4>
+                  
+                  <div class="dream-selector-grid">
+                    <div class="dream-preset active" onclick="selectDreamPreset('car', 80000, 3, 10)" id="preset-car">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="22" height="13" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="16" x2="12" y2="21"/></svg>
+                      <span>Automóvel</span>
+                    </div>
+                    <div class="dream-preset" onclick="selectDreamPreset('house', 450000, 10, 10)" id="preset-house">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                      <span>Imóvel</span>
+                    </div>
+                    <div class="dream-preset" onclick="selectDreamPreset('travel', 15000, 1, 6)" id="preset-travel">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                      <span>Viagem</span>
+                    </div>
+                    <div class="dream-preset" onclick="selectDreamPreset('custom', 50000, 5, 8)" id="preset-custom">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                      <span>Outros</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Valor Estimado (R$)</span>
+                      <span class="form-value-badge" id="val-dream-cost">R$ 80.000</span>
+                    </div>
+                    <input type="range" class="range-input" min="5000" max="1000000" step="5000" value="80000" id="slider-dream-cost" oninput="calculateDream()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Prazo em Anos</span>
+                      <span class="form-value-badge" id="val-dream-years">3 anos</span>
+                    </div>
+                    <input type="range" class="range-input" min="1" max="30" value="3" id="slider-dream-years" oninput="calculateDream()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Já possuo acumulado (R$)</span>
+                      <span class="form-value-badge" id="val-dream-saved">R$ 5.000</span>
+                    </div>
+                    <input type="range" class="range-input" min="0" max="200000" step="1000" value="5000" id="slider-dream-saved" oninput="calculateDream()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Rendimento Esperado (% ao ano)</span>
+                      <span class="form-value-badge" id="val-dream-rate">10% a.a.</span>
+                    </div>
+                    <input type="range" class="range-input" min="1" max="20" step="0.5" value="10" id="slider-dream-rate" oninput="calculateDream()">
+                  </div>
+                </div>
+
+                <div class="card accent-rose">
+                  <h4 style="font-family: var(--font-title); font-size: 1.3rem; margin-bottom: 1.5rem;">Cálculo da Poupança</h4>
+                  
+                  <div style="margin-bottom: 1.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">Aporte Mensal Requerido</span>
+                    <div class="output-massive-value" id="dream-monthly-saving">R$ 1.834,12</div>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);" id="dream-narrative">
+                      A disciplina de poupar consistentemente acelerará a conquista do seu objetivo.
+                    </p>
+                  </div>
+
+                  <div class="highlight-card">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                      <span>Total que você vai investir:</span>
+                      <strong id="dream-total-invested">R$ 66.028</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-top: 0.25rem;">
+                      <span>Rendimento acumulado em juros:</span>
+                      <strong style="color: var(--success);" id="dream-total-interest">R$ 13.971</strong>
+                    </div>
+                  </div>
+
+                  <div class="chart-comparison-wrapper">
+                    <div class="chart-bar-container">
+                      <div class="chart-bar-row">
+                        <div class="bar-label-area">
+                          <span>Seu Esforço</span>
+                          <span id="dream-pct-invested">82%</span>
+                        </div>
+                        <div class="bar-track">
+                          <div class="bar-fill fill-gray" id="bar-dream-invested" style="width: 82%"></div>
+                          <span class="bar-text" id="bar-val-dream-invested">R$ 66k</span>
+                        </div>
+                      </div>
+
+                      <div class="chart-bar-row">
+                        <div class="bar-label-area">
+                          <span>Esforço dos Juros</span>
+                          <span id="dream-pct-interest">18%</span>
+                        </div>
+                        <div class="bar-track">
+                          <div class="bar-fill fill-gradient" id="bar-dream-interest" style="width: 18%"></div>
+                          <span class="bar-text" id="bar-val-dream-interest">R$ 14k</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SUB-TAB: APOSENTADORIA -->
+            <div class="tab-content" id="tab-retirement">
+              <div class="grid-2">
+                <div class="card primary-accent">
+                  <h4 style="font-family: var(--font-title); font-size: 1.3rem; margin-bottom: 1.5rem;">Variáveis de Futuro</h4>
+                  
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Idade Atual</span>
+                      <span class="form-value-badge" id="val-ret-age-now">30 anos</span>
+                    </div>
+                    <input type="range" class="range-input" min="16" max="75" value="30" id="slider-ret-age-now" oninput="calculateRetirement()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Idade de Aposentadoria Alvo</span>
+                      <span class="form-value-badge" id="val-ret-age-target">60 anos</span>
+                    </div>
+                    <input type="range" class="range-input" min="40" max="85" value="60" id="slider-ret-age-target" oninput="calculateRetirement()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Aporte Mensal (R$)</span>
+                      <span class="form-value-badge" id="val-ret-monthly">R$ 1.000</span>
+                    </div>
+                    <input type="range" class="range-input" min="100" max="20000" step="100" value="1000" id="slider-ret-monthly" oninput="calculateRetirement()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Patrimônio Acumulado (R$)</span>
+                      <span class="form-value-badge" id="val-ret-assets">R$ 20.000</span>
+                    </div>
+                    <input type="range" class="range-input" min="0" max="1000000" step="5000" value="20000" id="slider-ret-assets" oninput="calculateRetirement()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Renda Mensal Alvo (R$)</span>
+                      <span class="form-value-badge" id="val-ret-income">R$ 5.000</span>
+                    </div>
+                    <input type="range" class="range-input" min="1000" max="50000" step="500" value="5000" id="slider-ret-income" oninput="calculateRetirement()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Taxa Real Estimada (% a.a.)</span>
+                      <span class="form-value-badge" id="val-ret-rate">6% a.a.</span>
+                    </div>
+                    <input type="range" class="range-input" min="1" max="12" step="0.5" value="6" id="slider-ret-rate" oninput="calculateRetirement()">
+                  </div>
+                </div>
+
+                <div class="card emerald">
+                  <h4 style="font-family: var(--font-title); font-size: 1.3rem; margin-bottom: 1.5rem;">Cenário Projetado</h4>
+                  
+                  <div style="margin-bottom: 1.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">Patrimônio Aos <span id="ret-text-age">60</span> Anos</span>
+                    <div class="output-massive-value" id="ret-estimated-wealth" style="background: var(--emerald-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">R$ 1.125.430</div>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);" id="ret-diagnostic-text">
+                      Seu patrimônio acumulado superará a meta mínima de tranquilidade planejada.
+                    </p>
+                  </div>
+
+                  <div class="card" style="background-color: rgba(255,255,255,0.02); padding: 1.25rem; border-color: rgba(255,255,255,0.04);">
+                    <div class="calc-row-summary">
+                      <span class="calc-summary-label">Montante Requerido Mínimo:</span>
+                      <span class="calc-summary-val" id="ret-required-wealth">R$ 1.000.000</span>
+                    </div>
+                    <div class="calc-row-summary">
+                      <span class="calc-summary-label">Renda Gerada Estimada:</span>
+                      <span class="calc-summary-val" id="ret-monthly-yield" style="color: var(--success);">R$ 5.627</span>
+                    </div>
+                    <div class="calc-row-summary">
+                      <span class="calc-summary-label">Total de Juros Acumulados:</span>
+                      <span class="calc-summary-val" id="ret-accumulated-interest">R$ 745.430</span>
+                    </div>
+                  </div>
+
+                  <div class="highlight-card" style="margin-top: 1.5rem;">
+                    <h5 style="font-family: var(--font-title); font-size: 1.05rem; color: var(--success); margin-bottom: 0.25rem;">Orientação Estratégica</h5>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;" id="ret-tips-practical">
+                      Seu plano está bem robusto! Continue aportando com a disciplina recomendada.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SUB-TAB: ORÇAMENTO 50/30/20 -->
+            <div class="tab-content" id="tab-budget">
+              <div class="grid-2">
+                <div class="card primary-accent">
+                  <h4 style="font-family: var(--font-title); font-size: 1.3rem; margin-bottom: 1.5rem;">Sua Divisão de Receitas</h4>
+                  
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Renda Líquida Mensal (R$)</span>
+                      <span class="form-value-badge" id="val-bud-income">R$ 5.000</span>
+                    </div>
+                    <input type="range" class="range-input" min="1000" max="30000" step="100" value="5000" id="slider-bud-income" oninput="calculateBudget()">
+                  </div>
+
+                  <div style="border-top: 1px solid var(--border-card); padding-top: 1.5rem; margin-top: 2rem;">
+                    <h5 style="font-family: var(--font-title); font-size: 1.1rem; margin-bottom: 1rem;">Distribuição Real Estimada:</h5>
+                    
+                    <div class="form-group">
+                      <div class="form-label">
+                        <span style="color: #6366f1;">Necessidades</span>
+                        <span class="form-value-badge" id="val-bud-ess">50%</span>
+                      </div>
+                      <input type="range" class="range-input" min="10" max="90" value="50" id="slider-bud-ess" oninput="calculateBudget()">
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-label">
+                        <span style="color: #ec4899;">Estilo de Vida</span>
+                        <span class="form-value-badge" id="val-bud-life">30%</span>
+                      </div>
+                      <input type="range" class="range-input" min="5" max="70" value="30" id="slider-bud-life" oninput="calculateBudget()">
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-label">
+                        <span style="color: #10b981;">Poupança</span>
+                        <span class="form-value-badge" id="val-bud-sav">20%</span>
+                      </div>
+                      <input type="range" class="range-input" min="0" max="60" value="20" id="slider-bud-sav" oninput="calculateBudget()">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card accent-rose">
+                  <h4 style="font-family: var(--font-title); font-size: 1.3rem; margin-bottom: 1.5rem;">Visualizador do Orçamento</h4>
+                  
+                  <div style="margin-bottom: 1.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">Capacidade de Poupança Líquida</span>
+                    <div class="output-massive-value" id="bud-monthly-saved">R$ 1.000</div>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);" id="bud-diagnostic">
+                      Seu orçamento segue à risca as regras de saúde financeira padrão. Excelente!
+                    </p>
+                  </div>
+
+                  <div class="card" style="background-color: rgba(255,255,255,0.02); padding: 1.25rem; border-color: rgba(255,255,255,0.04);">
+                    <div class="calc-row-summary">
+                      <span class="calc-summary-label">Necessidades (50% sugerido):</span>
+                      <span class="calc-summary-val" id="bud-val-ess">R$ 2.500</span>
+                    </div>
+                    <div class="calc-row-summary">
+                      <span class="calc-summary-label">Estilo de Vida (30% sugerido):</span>
+                      <span class="calc-summary-val" id="bud-val-life">R$ 1.500</span>
+                    </div>
+                    <div class="calc-row-summary">
+                      <span class="calc-summary-label">Poupança (20% sugerido):</span>
+                      <span class="calc-summary-val" id="bud-val-sav" style="color: var(--success);">R$ 1.000</span>
+                    </div>
+                  </div>
+
+                  <div class="budget-allocation-chart">
+                    <div class="budget-allocation-slice slice-essential" id="slice-ess" style="width: 50%;">50%</div>
+                    <div class="budget-allocation-slice slice-lifestyle" id="slice-life" style="width: 30%;">30%</div>
+                    <div class="budget-allocation-slice slice-savings" id="slice-sav" style="width: 20%;">20%</div>
+                  </div>
+
+                  <div class="budget-legend">
+                    <div class="legend-item"><div class="legend-color-dot slice-essential"></div><span>Necessidades</span></div>
+                    <div class="legend-item"><div class="legend-color-dot slice-lifestyle"></div><span>Estilo de Vida</span></div>
+                    <div class="legend-item"><div class="legend-color-dot slice-savings"></div><span>Poupança</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SUB-TAB: RENDA PASSIVA -->
+            <div class="tab-content" id="tab-passive">
+              <div class="grid-2">
+                <div class="card primary-accent">
+                  <h4 style="font-family: var(--font-title); font-size: 1.3rem; margin-bottom: 1.5rem;">Crescimento Patrimonial</h4>
+                  
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Investimento Inicial</span>
+                      <span class="form-value-badge" id="val-pas-initial">R$ 10.000</span>
+                    </div>
+                    <input type="range" class="range-input" min="0" max="250000" step="1000" value="10000" id="slider-pas-initial" oninput="calculatePassive()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Aportes Mensais adicionais</span>
+                      <span class="form-value-badge" id="val-pas-monthly">R$ 500</span>
+                    </div>
+                    <input type="range" class="range-input" min="50" max="10000" step="50" value="500" id="slider-pas-monthly" oninput="calculatePassive()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Dividend Yield Anual (%)</span>
+                      <span class="form-value-badge" id="val-pas-yield">9.0%</span>
+                    </div>
+                    <input type="range" class="range-input" min="1" max="18" step="0.2" value="9.0" id="slider-pas-yield" oninput="calculatePassive()">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-label">
+                      <span>Período de Acumulação</span>
+                      <span class="form-value-badge" id="val-pas-years">15 anos</span>
+                    </div>
+                    <input type="range" class="range-input" min="1" max="40" value="15" id="slider-pas-years" oninput="calculatePassive()">
+                  </div>
+                </div>
+
+                <div class="card emerald">
+                  <h4 style="font-family: var(--font-title); font-size: 1.3rem; margin-bottom: 1.5rem;">Sua Bola de Neve</h4>
+                  
+                  <div style="margin-bottom: 1.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">Dividendos Recebidos por Mês</span>
+                    <div class="output-massive-value" id="pas-monthly-income" style="background: var(--emerald-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">R$ 1.530</div>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);" id="pas-narrative">
+                      Com disciplina de acumulação, os rendimentos cobrirão contas essenciais do seu dia a dia.
+                    </p>
+                  </div>
+
+                  <h5 style="font-family: var(--font-title); font-size: 1.05rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Seus Marcos Conquistados:</h5>
+                  <div class="milestones-grid">
+                    <div class="milestone-badge-card" id="mile-coffee">
+                      <div class="milestone-left">
+                        <div class="milestone-icon-container">☕</div>
+                        <div class="milestone-info-text"><span class="milestone-title">Cafezinho Diário</span><span class="milestone-desc">Contas cotidianas pequenas</span></div>
+                      </div>
+                      <span class="milestone-target">R$ 150/mês</span>
+                    </div>
+
+                    <div class="milestone-badge-card" id="mile-power">
+                      <div class="milestone-left">
+                        <div class="milestone-icon-container">🔌</div>
+                        <div class="milestone-info-text"><span class="milestone-title">Contas Básicas</span><span class="milestone-desc">Água, luz ou celular arriscado</span></div>
+                      </div>
+                      <span class="milestone-target">R$ 400/mês</span>
+                    </div>
+
+                    <div class="milestone-badge-card" id="mile-market">
+                      <div class="milestone-left">
+                        <div class="milestone-icon-container">🛒</div>
+                        <div class="milestone-info-text"><span class="milestone-title">Supermercado</span><span class="milestone-desc">Alimentação mensal coberta</span></div>
+                      </div>
+                      <span class="milestone-target">R$ 1.500/mês</span>
+                    </div>
+
+                    <div class="milestone-badge-card" id="mile-rent">
+                      <div class="milestone-left">
+                        <div class="milestone-icon-container">🏠</div>
+                        <div class="milestone-info-text"><span class="milestone-title">Aluguel / Moradia</span><span class="milestone-desc">Custo de sobrevivência mais alto coberto</span></div>
+                      </div>
+                      <span class="milestone-target">R$ 3.000/mês</span>
+                    </div>
+
+                    <div class="milestone-badge-card" id="mile-freedom">
+                      <div class="milestone-left">
+                        <div class="milestone-icon-container">🚀</div>
+                        <div class="milestone-info-text"><span class="milestone-title">Liberdade Financeira</span><span class="milestone-desc">Aposentadoria de alta qualidade</span></div>
+                      </div>
+                      <span class="milestone-target">R$ 8.000/mês</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SUB-TAB: PERFIL DE INVESTIDOR -->
+            <div class="tab-content" id="tab-profile-quiz">
+              <div class="card quiz-card primary-accent">
+                <div class="quiz-progress-bar">
+                  <div class="quiz-progress-fill" id="profile-progress" style="width: 0%;"></div>
+                </div>
+
+                <div id="profile-quiz-question-container"></div>
+
+                <div id="profile-quiz-result" style="display: none;">
+                  <div class="quiz-result-container">
+                    <span class="result-badge" id="profile-badge">Moderada</span>
+                    <h3 class="result-title" id="profile-result-title">Perfil Moderado</h3>
+                    <p class="result-desc" id="profile-result-desc">
+                      Você valoriza a segurança, mas entende a volatilidade como ferramenta estratégica no médio e longo prazo.
+                    </p>
+                    
+                    <h5 style="font-family: var(--font-title); font-size: 1.05rem; margin-bottom: 0.5rem;">Alocação de Ativos Sugerida:</h5>
+                    <div class="investor-alloc-bar">
+                      <div class="investor-alloc-part alloc-fixed" id="alloc-fixed" style="width: 50%;">Renda Fixa: 50%</div>
+                      <div class="investor-alloc-part alloc-multimarket" id="alloc-multi" style="width: 30%;">FIIs: 30%</div>
+                      <div class="investor-alloc-part alloc-variable" id="alloc-var" style="width: 20%;">Ações: 20%</div>
+                    </div>
+
+                    <div class="budget-legend" style="width: 100%; max-width: 450px; margin-bottom: 2rem;">
+                      <div class="legend-item"><div class="legend-color-dot alloc-fixed"></div><span>Renda Fixa</span></div>
+                      <div class="legend-item"><div class="legend-color-dot alloc-multimarket"></div><span>FIIs / Multimercado</span></div>
+                      <div class="legend-item"><div class="legend-color-dot alloc-variable"></div><span>Renda Variável</span></div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                      <button class="action-button" onclick="restartProfileQuiz()">Refazer o Quiz</button>
+                      <button class="action-button btn-secondary" onclick="switchSimulatorTab('passive')">Projetar Investimentos</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SUB-TAB: PSICOLOGIA DO DINHEIRO -->
+            <div class="tab-content" id="tab-money-quiz">
+              <div class="card quiz-card accent-rose">
+                <div class="quiz-progress-bar">
+                  <div class="quiz-progress-fill" id="money-progress" style="width: 0%;"></div>
+                </div>
+
+                <div id="money-quiz-question-container"></div>
+
+                <div id="money-quiz-result" style="display: none;">
+                  <div class="quiz-result-container">
+                    <span class="result-badge" id="money-badge" style="background: var(--accent-gradient);">Guardadora</span>
+                    <h3 class="result-title" id="money-result-title">Arquétipo: O Poupador Segurança</h3>
+                    <p class="result-desc" id="money-result-desc">
+                      Você valoriza o controle de juros e segurança financeira profunda. Poupa muito bem, mas tem certa trava em usufruir no hoje.
+                    </p>
+                    
+                    <div class="highlight-card" style="width: 100%; text-align: left; margin-bottom: 2rem;">
+                      <h5 style="font-family: var(--font-title); font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--accent);">💡 Recomendações de Comportamento</h5>
+                      <ul style="padding-left: 1.25rem; font-size: 0.9rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem;" id="money-advice-list"></ul>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                      <button class="action-button" onclick="restartMoneyQuiz()">Refazer o Quiz</button>
+                      <button class="action-button btn-secondary" onclick="switchSection('home')">Voltar ao Início</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO: CONTATO
+         ========================================== -->
+    <section class="portal-section" id="sec-contact">
+      <div class="contact-section">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>Vamos Conversar?</h3>
+            <p>
+              Agende uma consultoria sem custos de bate-papo inicial para alinharmos onde você se encontra hoje e definirmos sua rota de estabilidade.
+            </p>
+            <div class="contact-methods">
+              <div class="contact-method-item">
+                <div class="contact-icon-box">💬</div>
+                <div class="contact-method-details">
+                  <span class="contact-method-label">WhatsApp</span>
+                  <span class="contact-method-val">+55 (11) 99999-8888</span>
+                </div>
+              </div>
+
+              <div class="contact-method-item">
+                <div class="contact-icon-box">✉️</div>
+                <div class="contact-method-details">
+                  <span class="contact-method-label">E-mail</span>
+                  <span class="contact-method-val">contato@flaviafinancas.com.br</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contact-form-card">
+            <h4 style="font-family: var(--font-title); font-size: 1.25rem; margin-bottom: 1.5rem;">Envie uma Mensagem</h4>
+            <form onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso! A Flávia entrará em contato em breve.');">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Seu Nome</label>
+                  <input type="text" class="input-text" placeholder="Nome completo" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">E-mail / Telefone</label>
+                  <input type="text" class="input-text" placeholder="Como te contatar" required>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Assunto de interesse</label>
+                <input type="text" class="input-text" placeholder="Ex: Mentoria individual, Casal, Workshop">
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Sua Mensagem</label>
+                <textarea class="textarea-text" placeholder="Diga qual seu momento atual..." required></textarea>
+              </div>
+              
+              <button type="submit" class="btn-primary" style="width: 100%;">Solicitar Contato Especializado</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Portal Footer -->
+  <footer class="portal-footer">
+    <span>&copy; 2026 Flávia Planejamento Financeiro. Todos os direitos reservados.</span>
+    <span>Acolhendo o presente, blindando o futuro.</span>
+  </footer>
+
+  <!-- ==========================================
+       JAVASCRIPT MODULES & CALCULATION LOGIC
+       ========================================== -->
+  <script>
+    /* ==========================================
+       GLOBAL PORTAL ROUTING
+       ========================================== */
+    const state = {
+      activeSection: 'home',
+      activeSimTab: 'dashboard',
+      theme: 'dark',
+      userProfile: 'Não Iniciado',
+      thermometerScore: 5.0,
+      profileScore: 0,
+      moneyScore: {}
+    };
+
+    function switchSection(secId) {
+      // Deactivate all sections & link styles
+      document.querySelectorAll('.portal-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-link-item').forEach(el => el.classList.remove('active'));
+
+      // Find active nav index and set it
+      const secIds = ['home', 'about', 'services', 'simulators', 'contact'];
+      const targetNavIdx = secIds.indexOf(secId);
+      const navItems = document.querySelectorAll('.nav-link-item');
+      if (navItems[targetNavIdx]) navItems[targetNavIdx].classList.add('active');
+
+      const secEl = document.getElementById(`sec-${secId}`);
+      if (secEl) secEl.classList.add('active');
+
+      state.activeSection = secId;
+      window.scrollTo(0, 0);
+
+      // Close mobile dropdown menu
+      const navLinks = document.getElementById('navLinks');
+      if (navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+      }
+
+      // Pre-initialize calculation values when entering simulator section
+      if (secId === 'simulators') {
+        updateThermometer();
+        calculateDream();
+        calculateRetirement();
+        calculateBudget();
+        calculatePassive();
+      }
+    }
+
+    function toggleMobileMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('open');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      state.theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+    }
+
+    /* ==========================================
+       SIMULATOR TAB NAVIGATION
+       ========================================== */
+    function switchSimulatorTab(simId) {
+      document.querySelectorAll('.sim-nav-item').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+
+      const simIds = ['dashboard', 'dream', 'retirement', 'budget', 'passive', 'profile-quiz', 'money-quiz'];
+      const targetIdx = simIds.indexOf(simId);
+      const navItems = document.querySelectorAll('.sim-nav-item');
+      if (navItems[targetIdx]) navItems[targetIdx].classList.add('active');
+
+      const tabEl = document.getElementById(`tab-${simId}`);
+      if (tabEl) tabEl.classList.add('active');
+
+      state.activeSimTab = simId;
+
+      // Init logic
+      if (simId === 'dream') calculateDream();
+      if (simId === 'retirement') calculateRetirement();
+      if (simId === 'budget') calculateBudget();
+      if (simId === 'passive') calculatePassive();
+    }
+
+    /* ==========================================
+       SIMULATORS MATHEMATICAL LOGIC
+       ========================================== */
+    function updateThermometer() {
+      const emergency = parseInt(document.getElementById('slider-emergency').value);
+      const debts = parseInt(document.getElementById('slider-debts').value);
+      const savingsPct = parseInt(document.getElementById('slider-savings').value);
+      const invests = parseInt(document.getElementById('slider-invests').value);
+
+      document.getElementById('val-emergency').innerText = emergency === 0 ? 'Nenhuma' : (emergency <= 3 ? '1 a 2 Meses' : (emergency <= 7 ? '3 a 5 Meses' : '6+ Meses'));
+      document.getElementById('val-debts').innerText = debts === 0 ? 'Dívidas Críticas' : (debts <= 4 ? 'Dívidas Altas' : (debts <= 7 ? 'Dívidas Controladas' : 'Sem Dívidas'));
+      document.getElementById('val-savings').innerText = `${savingsPct}% da Renda`;
+      document.getElementById('val-invests').innerText = invests === 0 ? 'Não Investe' : (invests <= 4 ? 'Poupança / Fixa' : (invests <= 8 ? 'Diversificado FIIs' : 'Investidor Pro'));
+
+      const scoreWeight = (emergency * 1.5) + (debts * 1.5) + (savingsPct * 1.0) + (invests * 1.0);
+      const finalScore = Math.min(10, Math.max(0, (scoreWeight / 50) * 10)).toFixed(1);
+      state.thermometerScore = parseFloat(finalScore);
+
+      document.getElementById('thermometerScore').innerText = finalScore;
+
+      const circle = document.getElementById('thermometerGauge');
+      const circumference = 2 * Math.PI * 80;
+      circle.style.strokeDashoffset = circumference - (finalScore / 10) * circumference;
+
+      const statusLabel = document.getElementById('thermometerStatusLabel');
+      const diagText = document.getElementById('thermometerDiagnostic');
+      const tipsContainer = document.getElementById('thermometerTipsContainer');
+      tipsContainer.innerHTML = '';
+
+      let badgeClass = 'status-yellow';
+      let statusName = 'Equilibrada';
+      let diagnostic = '';
+      let tips = [];
+
+      if (finalScore < 4.0) {
+        badgeClass = 'status-red';
+        statusName = 'Crítica';
+        diagnostic = 'Atenção especial recomendada. Reservas protetivas escassas e taxas elevadas de dívidas de curto prazo criam forte instabilidade mental e patrimonial. Focar na estruturação do orçamento com a Flávia é seu passo crucial hoje.';
+        tips = [
+          'Use a aba Orçamento 50/30/20 para mapear e conter vazamentos supérfluos imediatamente.',
+          'Considere estancar a taxa de perda quitando dívidas de juros mais pesados.',
+          'Monte sua primeira Reserva de Emergência de pelo menos R$ 1.500 no Tesouro Selic.'
+        ];
+      } else if (finalScore < 7.5) {
+        badgeClass = 'status-yellow';
+        statusName = 'Moderada';
+        diagnostic = 'Você já possui uma base sólida e não corre riscos imediatos, mas seu patrimônio está sofrendo perdas passivas na Poupança convencional ou falta de blindagem no longo prazo.';
+        tips = [
+          'Canalize esforços para construir uma reserva confortável de 6 meses de suas despesas.',
+          'Faça o Quiz de Perfil de Investidor para descobrir como investir com maior retorno.',
+          'Pense em automatizar seus investimentos mensais (Pague-se primeiro).'
+        ];
+      } else {
+        badgeClass = 'status-green';
+        statusName = 'Excelente';
+        diagnostic = 'Parabéns! Sua organização e saúde financeira são exemplares. Você poupa uma porcentagem saudável, possui reservas sólidas e está fazendo seu capital trabalhar de forma estratégica.';
+        tips = [
+          'Projete sua Aposentadoria para acelerar a independência definitiva com a Flávia.',
+          'Considere diversificar seus investimentos rumo a ativos de Renda Variável global.',
+          'Desenhe metas ousadas de curto prazo no Realizador de Sonhos.'
+        ];
+      }
+
+      statusLabel.className = `gauge-status ${badgeClass}`;
+      statusLabel.innerText = statusName;
+      diagText.innerText = diagnostic;
+
+      tips.forEach(tip => {
+        const item = document.createElement('div');
+        item.className = 'tip-item';
+        item.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--success); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>${tip}</span>
+        `;
+        tipsContainer.appendChild(item);
+      });
+    }
+
+    function selectDreamPreset(type, cost, years, interest) {
+      document.querySelectorAll('.dream-preset').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById(`preset-${type}`);
+      if (activeEl) activeEl.classList.add('active');
+
+      document.getElementById('slider-dream-cost').value = cost;
+      document.getElementById('slider-dream-years').value = years;
+      document.getElementById('slider-dream-rate').value = interest;
+
+      calculateDream();
+    }
+
+    function calculateDream() {
+      const cost = parseFloat(document.getElementById('slider-dream-cost').value);
+      const years = parseInt(document.getElementById('slider-dream-years').value);
+      const saved = parseFloat(document.getElementById('slider-dream-saved').value);
+      const annualRate = parseFloat(document.getElementById('slider-dream-rate').value) / 100;
+
+      document.getElementById('val-dream-cost').innerText = `R$ ${cost.toLocaleString('pt-BR')}`;
+      document.getElementById('val-dream-years').innerText = `${years} ${years === 1 ? 'ano' : 'anos'}`;
+      document.getElementById('val-dream-saved').innerText = `R$ ${saved.toLocaleString('pt-BR')}`;
+      document.getElementById('val-dream-rate').innerText = `${(annualRate * 100).toFixed(1)}% a.a.`;
+
+      const monthlyRate = Math.pow(1 + annualRate, 1/12) - 1;
+      const totalMonths = years * 12;
+
+      const futureSaved = saved * Math.pow(1 + monthlyRate, totalMonths);
+      const remainingTarget = Math.max(0, cost - futureSaved);
+
+      let monthlySaving = 0;
+      if (remainingTarget > 0) {
+        const factor = (Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate;
+        monthlySaving = remainingTarget / factor;
+      }
+
+      document.getElementById('dream-monthly-saving').innerText = `R$ ${monthlySaving.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+      const totalInvestedBySelf = saved + (monthlySaving * totalMonths);
+      const totalInterestAcquired = Math.max(0, cost - totalInvestedBySelf);
+
+      document.getElementById('dream-total-invested').innerText = `R$ ${totalInvestedBySelf.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+      document.getElementById('dream-total-interest').innerText = `R$ ${totalInterestAcquired.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+
+      const pctInvested = Math.round((totalInvestedBySelf / cost) * 100);
+      const pctInterest = 100 - pctInvested;
+
+      document.getElementById('dream-pct-invested').innerText = `${pctInvested}%`;
+      document.getElementById('dream-pct-interest').innerText = `${pctInterest}%`;
+
+      document.getElementById('bar-dream-invested').style.width = `${pctInvested}%`;
+      document.getElementById('bar-val-dream-invested').innerText = `R$ ${Math.round(totalInvestedBySelf/1000)}k`;
+
+      document.getElementById('bar-dream-interest').style.width = `${pctInterest}%`;
+      document.getElementById('bar-val-dream-interest').innerText = `R$ ${Math.round(totalInterestAcquired/1000)}k`;
+    }
+
+    function calculateRetirement() {
+      const ageNow = parseInt(document.getElementById('slider-ret-age-now').value);
+      const ageTarget = parseInt(document.getElementById('slider-ret-age-target').value);
+      const monthlyAporte = parseFloat(document.getElementById('slider-ret-monthly').value);
+      const currentWealth = parseFloat(document.getElementById('slider-ret-assets').value);
+      const targetIncome = parseFloat(document.getElementById('slider-ret-income').value);
+      const annualRate = parseFloat(document.getElementById('slider-ret-rate').value) / 100;
+
+      document.getElementById('val-ret-age-now').innerText = `${ageNow} anos`;
+      document.getElementById('val-ret-age-target').innerText = `${ageTarget} anos`;
+      document.getElementById('val-ret-monthly').innerText = `R$ ${monthlyAporte.toLocaleString('pt-BR')}`;
+      document.getElementById('val-ret-assets').innerText = `R$ ${currentWealth.toLocaleString('pt-BR')}`;
+      document.getElementById('val-ret-income').innerText = `R$ ${targetIncome.toLocaleString('pt-BR')}`;
+      document.getElementById('val-ret-rate').innerText = `${(annualRate*100).toFixed(1)}% a.a.`;
+
+      document.getElementById('ret-text-age').innerText = ageTarget;
+
+      const monthlyRate = Math.pow(1 + annualRate, 1/12) - 1;
+      const nMonths = Math.max(0, (ageTarget - ageNow) * 12);
+
+      const fvCurrent = currentWealth * Math.pow(1 + monthlyRate, nMonths);
+      let fvAportes = 0;
+      if (nMonths > 0) {
+        fvAportes = monthlyAporte * ((Math.pow(1 + monthlyRate, nMonths) - 1) / monthlyRate);
+      }
+
+      const totalWealthEstimated = fvCurrent + fvAportes;
+      const requiredWealth = targetIncome / 0.005; // 6% Safe Withdrawal Rate (0.5% monthly)
+      const expectedMonthlyYield = totalWealthEstimated * 0.005;
+
+      document.getElementById('ret-estimated-wealth').innerText = `R$ ${totalWealthEstimated.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+      document.getElementById('ret-required-wealth').innerText = `R$ ${requiredWealth.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+      document.getElementById('ret-monthly-yield').innerText = `R$ ${expectedMonthlyYield.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+
+      const totalInvested = currentWealth + (monthlyAporte * nMonths);
+      const accumulatedInterest = Math.max(0, totalWealthEstimated - totalInvested);
+      document.getElementById('ret-accumulated-interest').innerText = `R$ ${accumulatedInterest.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+
+      const diag = document.getElementById('ret-diagnostic-text');
+      const advice = document.getElementById('ret-tips-practical');
+
+      if (totalWealthEstimated >= requiredWealth) {
+        diag.innerText = `Excelente! Seu patrimônio estimado superará a meta teórica de juros reais de R$ ${requiredWealth.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}.`;
+        advice.innerText = `Você está no caminho ideal! Considere blindar seus investimentos focando na consistência e fale com a Flávia para planejar diversificações sofisticadas.`;
+      } else {
+        const gap = requiredWealth - totalWealthEstimated;
+        const additionalMonthlyRequired = gap / ((Math.pow(1 + monthlyRate, nMonths) - 1) / monthlyRate);
+        
+        diag.innerText = `Atenção: Seu patrimônio final projetado ficará R$ ${gap.toLocaleString('pt-BR', { maximumFractionDigits: 0 })} abaixo do planejado.`;
+        advice.innerHTML = `
+          <strong>Ajustes de rota sugeridos:</strong><br>
+          1. Aumente seu aporte mensal em <strong>R$ ${additionalMonthlyRequired.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</strong>.<br>
+          2. Adie sua idade de aposentadoria em <strong>3 ou 4 anos</strong> para deixar os juros trabalharem.<br>
+          3. Fale com a Flávia para encontrar melhores taxas de rentabilidade de forma inteligente.
+        `;
+      }
+    }
+
+    function calculateBudget() {
+      const income = parseFloat(document.getElementById('slider-bud-income').value);
+      const essPct = parseInt(document.getElementById('slider-bud-ess').value);
+      const lifePct = parseInt(document.getElementById('slider-bud-life').value);
+      const savPct = parseInt(document.getElementById('slider-bud-sav').value);
+
+      const sum = essPct + lifePct + savPct;
+
+      document.getElementById('val-bud-income').innerText = `R$ ${income.toLocaleString('pt-BR')}`;
+      document.getElementById('val-bud-ess').innerText = `${essPct}%`;
+      document.getElementById('val-bud-life').innerText = `${lifePct}%`;
+      document.getElementById('val-bud-sav').innerText = `${savPct}%`;
+
+      const valEss = income * (essPct / 100);
+      const valLife = income * (lifePct / 100);
+      const valSav = income * (savPct / 100);
+
+      document.getElementById('bud-val-ess').innerText = `R$ ${valEss.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+      document.getElementById('bud-val-life').innerText = `R$ ${valLife.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+      document.getElementById('bud-val-sav').innerText = `R$ ${valSav.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+      document.getElementById('bud-monthly-saved').innerText = `R$ ${valSav.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+
+      document.getElementById('slice-ess').style.width = `${(essPct / sum) * 100}%`;
+      document.getElementById('slice-ess').innerText = `${essPct}%`;
+
+      document.getElementById('slice-life').style.width = `${(lifePct / sum) * 100}%`;
+      document.getElementById('slice-life').innerText = `${lifePct}%`;
+
+      document.getElementById('slice-sav').style.width = `${(savPct / sum) * 100}%`;
+      document.getElementById('slice-sav').innerText = `${savPct}%`;
+    }
+
+    function calculatePassive() {
+      const initial = parseFloat(document.getElementById('slider-pas-initial').value);
+      const monthly = parseFloat(document.getElementById('slider-pas-monthly').value);
+      const yieldPct = parseFloat(document.getElementById('slider-pas-yield').value) / 100;
+      const years = parseInt(document.getElementById('slider-pas-years').value);
+
+      document.getElementById('val-pas-initial').innerText = `R$ ${initial.toLocaleString('pt-BR')}`;
+      document.getElementById('val-pas-monthly').innerText = `R$ ${monthly.toLocaleString('pt-BR')}`;
+      document.getElementById('val-pas-yield').innerText = `${(yieldPct*100).toFixed(1)}% a.a.`;
+      document.getElementById('val-pas-years').innerText = `${years} anos`;
+
+      const monthlyRate = yieldPct / 12;
+      const totalMonths = years * 12;
+
+      const fvInitial = initial * Math.pow(1 + monthlyRate, totalMonths);
+      const fvMonthly = monthly * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate);
+      const totalPortfolio = fvInitial + fvMonthly;
+      const monthlyIncome = totalPortfolio * monthlyRate;
+
+      document.getElementById('pas-monthly-income').innerText = `R$ ${monthlyIncome.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
+      document.getElementById('pas-narrative').innerHTML = `Com o patrimônio final acumulado de <strong>R$ ${totalPortfolio.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</strong>, este capital renderá juros de forma constante.`;
+
+      // Milestones
+      const milestones = [
+        { id: 'mile-coffee', min: 150 },
+        { id: 'mile-power', min: 400 },
+        { id: 'mile-market', min: 1500 },
+        { id: 'mile-rent', min: 3000 },
+        { id: 'mile-freedom', min: 8000 }
+      ];
+
+      milestones.forEach(m => {
+        const badge = document.getElementById(m.id);
+        if (monthlyIncome >= m.min) badge.classList.add('achieved');
+        else badge.classList.remove('achieved');
+      });
+    }
+
+    /* ==========================================
+       QUIZ SYSTEM PORTAL (PERFIL & PSICOLOGIA)
+       ========================================== */
+    const profileQuestions = [
+      {
+        question: "Qual o seu objetivo ao investir seu patrimônio?",
+        options: [
+          { text: "Preservar meu dinheiro de qualquer perda, mesmo que renda menos.", value: 1 },
+          { text: "Ganhar da inflação mantendo boa segurança e estabilidade.", value: 3 },
+          { text: "Multiplicar patrimônio no longo prazo aceitando riscos calculados.", value: 5 }
+        ]
+      },
+      {
+        question: "Se a bolsa sofresse uma queda forte de 20%, o que faria?",
+        options: [
+          { text: "Resgataria todo o dinheiro imediatamente para evitar riscos maiores.", value: 1 },
+          { text: "Manteria os investimentos inalterados, aguardando a recuperação.", value: 3 },
+          { text: "Aproveitaria os preços baixos para aportar ainda mais capital.", value: 5 }
+        ]
+      },
+      {
+        question: "Por quanto tempo pretende deixar seus investimentos trabalhando?",
+        options: [
+          { text: "Menos de 1 ano. Posso precisar dele em imprevistos diários.", value: 1 },
+          { text: "De 1 a 5 anos. Estou focado em objetivos de médio prazo.", value: 3 },
+          { text: "Mais de 5 anos. Foco em aposentadoria estratégica e renda.", value: 5 }
+        ]
+      },
+      {
+        question: "Qual o seu nível de compreensão teórica e prática sobre o mercado?",
+        options: [
+          { text: "Básico. Conheço apenas a poupança e títulos de juros públicos simples.", value: 1 },
+          { text: "Intermediário. Entendo fundos imobiliários, CDBs e o básico de riscos.", value: 3 },
+          { text: "Avançado. Conheço estratégias agressivas, ações e variações frequentes.", value: 5 }
+        ]
+      },
+      {
+        question: "Como prefere balancear a relação Risco vs Retorno?",
+        options: [
+          { text: "Minimizar o risco ao máximo (100% segurança e liquidez).", value: 1 },
+          { text: "Equilíbrio absoluto (uma parte em liquidez e outra buscando ganhos).", value: 3 },
+          { text: "Alta busca por retorno estratégico (aceito volatilidades frequentes).", value: 5 }
+        ]
+      }
+    ];
+
+    let currentProfileIdx = 0;
+
+    function renderProfileQuestion() {
+      const container = document.getElementById('profile-quiz-question-container');
+      const progress = document.getElementById('profile-progress');
+      
+      const pct = (currentProfileIdx / profileQuestions.length) * 100;
+      progress.style.width = `${pct}%`;
+
+      if (currentProfileIdx >= profileQuestions.length) {
+        showProfileResult();
+        return;
+      }
+
+      const q = profileQuestions[currentProfileIdx];
+      container.innerHTML = `
+        <div class="quiz-question-box">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--primary); text-transform: uppercase; display: block; text-align: center; margin-bottom: 0.5rem;">Questão ${currentProfileIdx + 1} de 5</span>
+          <h2>${q.question}</h2>
+          <div class="quiz-options-list">
+            ${q.options.map((opt, i) => `
+              <button class="quiz-option-button" onclick="answerProfileQuestion(${opt.value})">
+                <span class="option-letter">${String.fromCharCode(65 + i)}</span>
+                <span>${opt.text}</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function answerProfileQuestion(val) {
+      state.profileScore += val;
+      currentProfileIdx++;
+      renderProfileQuestion();
+    }
+
+    function showProfileResult() {
+      document.getElementById('profile-quiz-question-container').style.display = 'none';
+      document.getElementById('profile-quiz-result').style.display = 'block';
+
+      const score = state.profileScore;
+      let badge = 'Conservadora';
+      let title = 'Perfil Conservador';
+      let desc = 'Sua prioridade número um é a preservação de capital e segurança. Foca em Renda Fixa de altíssima segurança.';
+      let fixed = 80, multi = 15, variable = 5;
+
+      if (score >= 12 && score <= 19) {
+        badge = 'Moderada';
+        title = 'Perfil Moderado';
+        desc = 'Você busca um equilíbrio saudável entre o crescimento de patrimônio e a preservação de capital. Aceita pequenas flutuações.';
+        fixed = 50, multi = 30, variable = 20;
+      } else if (score >= 20) {
+        badge = 'Arrojada';
+        title = 'Perfil Arrojado';
+        desc = 'Você entende e absorve as oscilações de curto prazo, focando inteiramente em ganho a longo prazo.';
+        fixed = 20, multi = 30, variable = 50;
+      }
+
+      document.getElementById('profile-badge').innerText = badge;
+      document.getElementById('profile-result-title').innerText = title;
+      document.getElementById('profile-result-desc').innerText = desc;
+
+      document.getElementById('alloc-fixed').style.width = `${fixed}%`;
+      document.getElementById('alloc-fixed').innerText = `Fixa: ${fixed}%`;
+      document.getElementById('alloc-multi').style.width = `${multi}%`;
+      document.getElementById('alloc-multi').innerText = `FIIs: ${multi}%`;
+      document.getElementById('alloc-var').style.width = `${variable}%`;
+      document.getElementById('alloc-var').innerText = `Ações: ${variable}%`;
+    }
+
+    function restartProfileQuiz() {
+      state.profileScore = 0;
+      currentProfileIdx = 0;
+      document.getElementById('profile-quiz-question-container').style.display = 'block';
+      document.getElementById('profile-quiz-result').style.display = 'none';
+      renderProfileQuestion();
+    }
+
+    /* PSYCHOLOGY QUIZ */
+    const moneyQuestions = [
+      {
+        question: "Quando você recebe uma receita ou salário extra, qual sua atitude imediata?",
+        options: [
+          { text: "Poupar o máximo por medo de oscilações ou escassez futura.", type: "saver" },
+          { text: "Comprar confortos imediatos ou itens desejados pendentes.", type: "spender" },
+          { text: "Investir para multiplicar e gerar retornos de juros.", type: "investor" },
+          { text: "Evito olhar o saldo para não sentir ansiedade financeira.", type: "avoider" }
+        ]
+      },
+      {
+        question: "Como você monitora e acompanha suas contas no cotidiano?",
+        options: [
+          { text: "Controle estrito. Anoto cada moeda em planilhas ou cadernos.", type: "saver" },
+          { text: "Bastante informal. Compro de forma livre, às vezes atrasando contas.", type: "spender" },
+          { text: "Planejado. Sigo limites estratégicos e poupo antes de gastar.", type: "investor" },
+          { text: "Pavor de olhar faturas. Prefiro não saber do saldo atual.", type: "avoider" }
+        ]
+      },
+      {
+        question: "O que representa o termo 'Dinheiro' para o seu emocional?",
+        options: [
+          { text: "Segurança absoluta e blindagem contra perigos.", type: "saver" },
+          { text: "Liberdade, prazeres, conforto e prestígio de escolhas.", type: "spender" },
+          { text: "Uma ferramenta neutra para comprar autonomia de tempo.", type: "investor" },
+          { text: "Ansiedade, tédio, desgaste e obrigações desgastantes.", type: "avoider" }
+        ]
+      },
+      {
+        question: "Como reage frente a imprevistos de saúde ou despesas altas?",
+        options: [
+          { text: "Fico extremamente nervosa de ter que gastar minhas reservas.", type: "saver" },
+          { text: "Cria pânico, pois não possuo reservas e contraio novas dívidas.", type: "spender" },
+          { text: "Resolvo calmamente com minha reserva, pois previ que coisas assim acontecem.", type: "investor" },
+          { text: "Adio o pagamento o máximo possível, ignorando o problema.", type: "avoider" }
+        ]
+      },
+      {
+        question: "Qual o seu maior receio existencial financeiro?",
+        options: [
+          { text: "Ficar pobre, passar necessidade ou perder toda a segurança.", type: "saver" },
+          { text: "Trabalhar eternamente sem usufruir da vida hoje.", type: "spender" },
+          { text: "Não alcançar a liberdade e a autonomia definitiva.", type: "investor" },
+          { text: "Ser obrigado a tomar decisões complexas de tabelas e investimentos.", type: "avoider" }
+        ]
+      }
+    ];
+
+    let currentMoneyIdx = 0;
+
+    function renderMoneyQuestion() {
+      const container = document.getElementById('money-quiz-question-container');
+      const progress = document.getElementById('money-progress');
+      
+      const pct = (currentMoneyIdx / moneyQuestions.length) * 100;
+      progress.style.width = `${pct}%`;
+
+      if (currentMoneyIdx >= moneyQuestions.length) {
+        showMoneyResult();
+        return;
+      }
+
+      const q = moneyQuestions[currentMoneyIdx];
+      container.innerHTML = `
+        <div class="quiz-question-box">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; display: block; text-align: center; margin-bottom: 0.5rem;">Questão ${currentMoneyIdx + 1} de 5</span>
+          <h2>${q.question}</h2>
+          <div class="quiz-options-list">
+            ${q.options.map((opt, i) => `
+              <button class="quiz-option-button" onclick="answerMoneyQuestion('${opt.type}')">
+                <span class="option-letter" style="color: var(--accent);">${String.fromCharCode(65 + i)}</span>
+                <span>${opt.text}</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function answerMoneyQuestion(type) {
+      state.moneyScore[type] = (state.moneyScore[type] || 0) + 1;
+      currentMoneyIdx++;
+      renderMoneyQuestion();
+    }
+
+    function showMoneyResult() {
+      document.getElementById('money-quiz-question-container').style.display = 'none';
+      document.getElementById('money-quiz-result').style.display = 'block';
+
+      let maxScore = 0;
+      let archetype = 'investor';
+
+      for (const [key, value] of Object.entries(state.moneyScore)) {
+        if (value > maxScore) {
+          maxScore = value;
+          archetype = key;
+        }
+      }
+
+      let badge = 'Investidora';
+      let title = 'O Investidor Consistente';
+      let desc = 'Você tem um relacionamento equilibrado e enxerga o dinheiro como um meio neutro para comprar sua liberdade.';
+      let advices = [
+        'Continue fortalecendo seus aportes sistemáticos na aba Renda Passiva.',
+        'Fale com a Flávia para montar carteiras mais arrojadas.'
+      ];
+
+      if (archetype === 'saver') {
+        badge = 'Guardadora';
+        title = 'O Poupador Segurança';
+        desc = 'Você economiza com muita facilidade, mas possui forte bloqueio psicológico em usufruir o presente.';
+        advices = [
+          'Separe uma verba fixa mensal de 10% para lazer sem culpa.',
+          'Consulte a Flávia para vencer a barreira mental de medo do risco de forma controlada.'
+        ];
+      } else if (archetype === 'spender') {
+        badge = 'Gastadora';
+        title = 'O Consumidor Presente';
+        desc = 'Você prioriza o conforto imediato, muitas vezes comprando por impulsividade emocional ou pressão social.';
+        advices = [
+          'Deixe uma transferência programada para investimentos no dia do salário (Pague-se primeiro).',
+          'Use o Orçamento 50/30/20 para impor limites saudáveis.'
+        ];
+      } else if (archetype === 'avoider') {
+        badge = 'Desconectada';
+        title = 'O Evitador Silencioso';
+        desc = 'A fatura ou o painel financeiro te geram alto estresse. Prefere ignorar e empurrar as contas com a barriga.';
+        advices = [
+          'Tire apenas 15 minutos na semana para monitorar despesas, sem cobranças rígidas.',
+          'Considere mentorias individuais com a Flávia para simplificar o controle.'
+        ];
+      }
+
+      document.getElementById('money-badge').innerText = badge;
+      document.getElementById('money-result-title').innerText = `Arquétipo: ${title}`;
+      document.getElementById('money-result-desc').innerText = desc;
+
+      const list = document.getElementById('money-advice-list');
+      list.innerHTML = '';
+      advices.forEach(adv => {
+        const li = document.createElement('li');
+        li.innerText = adv;
+        list.appendChild(li);
+      });
+    }
+
+    function restartMoneyQuiz() {
+      state.moneyScore = {};
+      currentMoneyIdx = 0;
+      document.getElementById('money-quiz-question-container').style.display = 'block';
+      document.getElementById('money-quiz-result').style.display = 'none';
+      renderMoneyQuestion();
+    }
+
+    window.onload = function() {
+      renderProfileQuestion();
+      renderMoneyQuestion();
+    }
+  </script>
+</body>
+</html>
