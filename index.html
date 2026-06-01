@@ -180,6 +180,231 @@
     }
 
     /* ==========================================
+       INTRO OVERLAY — TELA DE ABERTURA
+       ========================================== */
+
+    body.intro-active { overflow: hidden; }
+
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #08060f;
+      background-image:
+        linear-gradient(rgba(168,85,247,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,85,247,0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      transition: opacity 0.5s ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    /* Foto da Flávia no fundo do intro */
+    .intro-bg-photo {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      width: auto;
+      max-width: 55%;
+      object-fit: cover;
+      object-position: top center;
+      opacity: 0.12;
+      filter: grayscale(60%) brightness(0.7);
+      /* Mascara gradiente: some nas bordas */
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0,0,0,0.6) 25%,
+        black 60%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0,0,0,0.6) 25%,
+        black 60%,
+        transparent 100%
+      );
+      pointer-events: none;
+      animation: intro-photo-fade 1.5s ease 1s both;
+    }
+    @keyframes intro-photo-fade {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 0.12; transform: translateX(0); }
+    }
+
+    @media (max-width: 600px) {
+      .intro-bg-photo {
+        max-width: 80%;
+        opacity: 0.08;
+      }
+    }
+
+    #intro-panel-top,
+    #intro-panel-bottom {
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: 9998;
+      height: 50vh;
+      background: #08060f;
+      background-image:
+        linear-gradient(rgba(168,85,247,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,85,247,0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+      pointer-events: none;
+      opacity: 1;
+    }
+    #intro-panel-top    { top: 0;    transform: translateY(0); }
+    #intro-panel-bottom { bottom: 0; transform: translateY(0); }
+    #intro-panel-top.open    { transform: translateY(-100%); }
+    #intro-panel-bottom.open { transform: translateY(100%);  }
+    #intro-overlay.hiding    { opacity: 0; pointer-events: none; }
+    #intro-overlay.hidden, #intro-panel-top.gone, #intro-panel-bottom.gone { display: none; }
+
+    .intro-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.6rem;
+      position: relative;
+    }
+
+    .intro-glow-ring {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 1px solid rgba(168,85,247,0.25);
+      animation: intro-ring 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .intro-glow-ring-2 {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      border: 1px solid rgba(168,85,247,0.12);
+      animation: intro-ring 2s ease-in-out 0.5s infinite;
+      pointer-events: none;
+    }
+    @keyframes intro-ring {
+      0%,100% { transform: scale(1);    opacity: 0.35; }
+      50%      { transform: scale(1.06); opacity: 0.75; }
+    }
+
+    .intro-logo {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 40px rgba(168,85,247,0.7));
+      position: relative;
+      z-index: 1;
+      animation:
+        intro-logo-in   1s  cubic-bezier(0.34,1.56,0.64,1) 0.3s both,
+        intro-logo-glow 3s  ease-in-out                     2s   infinite;
+    }
+    @keyframes intro-logo-in {
+      from { opacity:0; transform:scale(0.3); filter:drop-shadow(0 0 0 rgba(168,85,247,0)); }
+      60%  { filter:drop-shadow(0 0 80px rgba(168,85,247,1)); }
+      to   { opacity:1; transform:scale(1);   filter:drop-shadow(0 0 40px rgba(168,85,247,0.7)); }
+    }
+    @keyframes intro-logo-glow {
+      0%,100% { filter:drop-shadow(0 0 30px rgba(168,85,247,0.55)); }
+      50%      { filter:drop-shadow(0 0 60px rgba(168,85,247,0.9)); }
+    }
+
+    .intro-line {
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(168,85,247,0.8), rgba(236,72,153,0.8), transparent);
+      border-radius: 2px;
+      animation: intro-line-grow 0.6s ease 1.5s both;
+    }
+    @keyframes intro-line-grow { to { width: 240px; } }
+
+    .intro-name {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      overflow: hidden;
+    }
+    .intro-name-flavia,
+    .intro-name-duarte {
+      font-family: var(--font-title);
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1;
+      white-space: nowrap;
+      display: block;
+    }
+    .intro-name-flavia {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: intro-name-up 0.7s cubic-bezier(0.22,1,0.36,1) 1.6s both;
+    }
+    .intro-name-duarte {
+      background: linear-gradient(135deg, #ec4899 0%, #a855f7 60%, #6366f1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: intro-name-up 0.7s cubic-bezier(0.22,1,0.36,1) 1.85s both;
+    }
+    @keyframes intro-name-up {
+      from { opacity:0; transform:translateY(28px); clip-path:inset(0 0 100% 0); }
+      40%  { opacity:1; }
+      to   { opacity:1; transform:translateY(0);    clip-path:inset(0 0 0% 0); }
+    }
+
+    .intro-tagline {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(168,85,247,0.7);
+      animation: intro-fade-up 0.6s ease 2.4s both;
+    }
+    .intro-hint {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      animation: intro-fade-up 0.6s ease 3s both, intro-blink 1.6s ease 3.8s infinite;
+    }
+    @keyframes intro-fade-up {
+      from { opacity:0; transform:translateY(8px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes intro-blink {
+      0%,100% { opacity:0.22; }
+      50%      { opacity:0.6; }
+    }
+
+    .intro-particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(168,85,247,0.6);
+      animation: intro-particle-float linear infinite;
+      pointer-events: none;
+    }
+    @keyframes intro-particle-float {
+      from { transform:translateY(100vh); opacity:0; }
+      10%  { opacity:1; }
+      90%  { opacity:0.4; }
+      to   { transform:translateY(-80px); opacity:0; }
+    }
+
+    /* ==========================================
        NAVIGATION & HEADER
        ========================================== */
     .top-nav {
@@ -206,31 +431,193 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
+      cursor: pointer;
     }
 
     .brand-logo {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
-      background: var(--primary-gradient);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-weight: 800;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+      overflow: hidden;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 8px rgba(168, 85, 247, 0.4));
+      transition: filter 0.3s ease;
+    }
+
+    .brand-logo:hover {
+      filter: drop-shadow(0 4px 14px rgba(168, 85, 247, 0.65));
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .brand-name {
       font-family: var(--font-title);
-      font-size: 1.35rem;
+      font-size: 1.2rem;
       font-weight: 800;
       background: var(--primary-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+    }
+
+    /* ==========================================
+       HERO LOGO TRANSFORM ANIMATION
+       Sequência:
+         0-0.8s  → Logo FD surge grande e centralizado
+         0.8-1.8s → Logo encolhe/desloca para a esquerda
+         1.4-2.2s → Nome "Flávia Duarte" emerge da direita
+         2.4s+   → Tagline + estado final com pulso suave
+       ========================================== */
+
+    /* Wrapper externo — alinha tudo e define a área da animação */
+    .hero-logo-reveal {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 2.8rem;
+    }
+
+    /* Container horizontal: logo + texto lado a lado */
+    .logo-transform-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      position: relative;
+    }
+
+    /* ---- LOGO FD ---- */
+    .logo-transform-fd {
+      width: 110px;
+      height: 110px;
+      flex-shrink: 0;
+      object-fit: contain;
+      /* Fase 1: entra grande e centralizado */
+      /* Fase 2: encolhe e passa a ser o ícone da marca */
+      animation:
+        fd-enter   0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0s     both,
+        fd-shrink  0.9s cubic-bezier(0.4, 0, 0.2, 1)      0.85s  both;
+      filter: drop-shadow(0 0 28px rgba(168, 85, 247, 0.55));
+      transform-origin: center center;
+    }
+
+    /* Entrada: aparece do zero com bounce + glow */
+    @keyframes fd-enter {
+      0%   { opacity: 0; transform: scale(2.2); filter: drop-shadow(0 0 0px rgba(168,85,247,0)); }
+      50%  { filter: drop-shadow(0 0 60px rgba(168,85,247,0.9)); }
+      100% { opacity: 1; transform: scale(2.2); filter: drop-shadow(0 0 35px rgba(168,85,247,0.6)); }
+    }
+
+    /* Encolhimento: logo volta ao tamanho do ícone (scale 1) */
+    @keyframes fd-shrink {
+      0%   { transform: scale(2.2); }
+      100% { transform: scale(1);   }
+    }
+
+    /* ---- SEPARADOR ---- */
+    .logo-transform-sep {
+      width: 2px;
+      height: 70px;
+      flex-shrink: 0;
+      margin: 0 1.4rem;
+      background: linear-gradient(to bottom, transparent, rgba(168,85,247,0.55), transparent);
+      /* Aparece junto com o encolhimento do logo */
+      animation: sep-in 0.4s ease 1.5s both;
+    }
+
+    @keyframes sep-in {
+      from { opacity: 0; transform: scaleY(0); }
+      to   { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ---- NOME FLÁVIA DUARTE ---- */
+    .logo-transform-name {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; /* mascara a saída das letras */
+      gap: 0;
+    }
+
+    .logo-name-flavia,
+    .logo-name-duarte {
+      font-family: var(--font-title);
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.02;
+      display: block;
+      white-space: nowrap;
+    }
+
+    /* "Flávia" usa o gradiente primário */
+    .logo-name-flavia {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      /* Revela da esquerda, como se emergisse do logo */
+      animation: name-emerge 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1.6s both;
+    }
+
+    /* "Duarte" segue meio segundo depois */
+    .logo-name-duarte {
+      background: linear-gradient(135deg, #ec4899 0%, #a855f7 60%, #6366f1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: name-emerge 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1.9s both;
+    }
+
+    /* Reveal: emerge da esquerda com clip-path, dando a sensação
+       de que está saindo de dentro do logo FD */
+    @keyframes name-emerge {
+      0% {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: translateX(-12px);
+      }
+      40% { opacity: 1; }
+      100% {
+        opacity: 1;
+        clip-path: inset(0 0% 0 0);
+        transform: translateX(0);
+      }
+    }
+
+    /* ---- TAGLINE ---- */
+    .logo-transform-tagline {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.6rem;
+      padding-left: 4px;
+      animation: tagline-fade 0.6s ease 2.5s both;
+    }
+
+    @keyframes tagline-fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Pulso suave do logo após toda a animação */
+    .logo-transform-fd {
+      animation:
+        fd-enter   0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0s     both,
+        fd-shrink  0.9s cubic-bezier(0.4, 0, 0.2, 1)      0.85s  both,
+        fd-pulse   3s   ease-in-out                        2.8s   infinite;
+    }
+
+    @keyframes fd-pulse {
+      0%, 100% { filter: drop-shadow(0 0 22px rgba(168,85,247,0.45)); }
+      50%       { filter: drop-shadow(0 0 38px rgba(168,85,247,0.75)); }
     }
 
     .nav-links {
@@ -1783,7 +2170,36 @@
     }
   </style>
 </head>
-<body class="light-mode">
+<body class="light-mode intro-active">
+
+  <!-- ===================================================
+       INTRO OVERLAY — Abre a página com animação cinemática
+       =================================================== -->
+  <div id="intro-overlay" onclick="dismissIntro()">
+    <!-- Foto de fundo com opacidade baixa -->
+    <img src="fotos/perfil.jpeg" alt="" class="intro-bg-photo">
+    <!-- Partículas flutuantes (geradas via JS) -->
+    <div id="intro-particles"></div>
+    <!-- Anéis de glow -->
+    <div class="intro-glow-ring"></div>
+    <div class="intro-glow-ring-2"></div>
+    <!-- Conteúdo central -->
+    <div class="intro-center">
+      <img src="logo/fd.svg" alt="FD" class="intro-logo">
+      <div class="intro-line"></div>
+      <div class="intro-name">
+        <span class="intro-name-flavia">Flávia</span>
+        <span class="intro-name-duarte">Duarte</span>
+      </div>
+      <div class="intro-tagline">Planejamento Financeiro &amp; Educação</div>
+      <div class="intro-hint">Toque para entrar &darr;</div>
+    </div>
+  </div>
+
+  <!-- Painel superior (cortina) -->
+  <div id="intro-panel-top"></div>
+  <!-- Painel inferior (cortina) -->
+  <div id="intro-panel-bottom"></div>
 
   <!-- Modern digital background overlays -->
   <div class="glow-grid"></div>
@@ -1793,9 +2209,11 @@
 
   <!-- Sticky Top Navigation -->
   <header class="top-nav">
-    <div class="brand">
-      <div class="brand-logo">F</div>
-      <div class="brand-name">Flávia Finanças</div>
+    <div class="brand" onclick="switchSection('home')">
+      <div class="brand-logo">
+        <img src="logo/fd.svg" alt="FD Logo">
+      </div>
+      <div class="brand-name">Flávia Duarte</div>
     </div>
     
     <nav class="nav-links" id="navLinks">
@@ -1918,8 +2336,8 @@
         <div class="hero-bg-overlay"></div>
         <div class="hero-grid">
           <div class="hero-content">
-            <div class="hero-welcome-badge">Planejamento & Educação</div>
-            <h2>Equilíbrio, Autonomia e <span>Liberdade Financeira</span></h2>
+            <div class="hero-welcome-badge">Equilíbrio &amp; Autonomia</div>
+            <h2>Liberdade Financeira <span>começa aqui</span></h2>
             <p>
               Um ambiente acolhedor e estratégico projetado para apoiar mulheres (e também homens) a construírem um relacionamento saudável com o dinheiro e planejarem o futuro sem ansiedade.
             </p>
@@ -2701,6 +3119,61 @@
        JAVASCRIPT MODULES & CALCULATION LOGIC
        ========================================== -->
   <script>
+    /* ==========================================
+       INTRO OVERLAY — Sequência de abertura
+       ========================================== */
+
+    // Gera partículas flutuantes no intro
+    (function spawnParticles() {
+      const container = document.getElementById('intro-particles');
+      if (!container) return;
+      for (let i = 0; i < 18; i++) {
+        const p = document.createElement('div');
+        p.className = 'intro-particle';
+        const size = Math.random() * 3 + 1.5;
+        p.style.cssText = `
+          width: ${size}px; height: ${size}px;
+          left: ${Math.random() * 100}vw;
+          animation-duration: ${Math.random() * 8 + 7}s;
+          animation-delay: ${Math.random() * 6}s;
+          opacity: 0;
+          background: ${Math.random() > 0.5 ? 'rgba(168,85,247,0.7)' : 'rgba(236,72,153,0.5)'};
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    // Dismissal automático após 5s
+    let introDismissed = false;
+    const introAutoTimer = setTimeout(() => dismissIntro(), 5000);
+
+    function dismissIntro() {
+      if (introDismissed) return;
+      introDismissed = true;
+      clearTimeout(introAutoTimer);
+
+      const overlay = document.getElementById('intro-overlay');
+      const panelTop = document.getElementById('intro-panel-top');
+      const panelBot = document.getElementById('intro-panel-bottom');
+
+      // 1. Overlay (logo, text, particles, and profile photo) fades out
+      overlay.classList.add('hiding');
+
+      // 2. Curtains start to slide open as the overlay fade completes
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        panelTop.classList.add('open');
+        panelBot.classList.add('open');
+      }, 350);
+
+      // 3. Scroll enabled, curtains completely hidden
+      setTimeout(() => {
+        document.body.classList.remove('intro-active');
+        panelTop.classList.add('gone');
+        panelBot.classList.add('gone');
+      }, 1600);
+    }
+
     /* ==========================================
        GLOBAL PORTAL ROUTING
        ========================================== */
