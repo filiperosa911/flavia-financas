@@ -57,25 +57,25 @@
 
     /* Light Mode Variables */
     body.light-mode {
-      --bg-color: #faf9f6; /* Warm elegant white */
-      --bg-card: rgba(255, 255, 255, 0.85);
-      --bg-card-hover: rgba(255, 255, 255, 0.98);
-      --border-card: rgba(0, 0, 0, 0.05);
-      --border-active: rgba(168, 85, 247, 0.3);
+      --bg-color: #f7f6fa; /* Modern soft background with a subtle lavender touch */
+      --bg-card: rgba(255, 255, 255, 0.75);
+      --bg-card-hover: rgba(255, 255, 255, 0.95);
+      --border-card: rgba(147, 51, 234, 0.08);
+      --border-active: rgba(147, 51, 234, 0.3);
       
-      --text-primary: #1c1929;
-      --text-secondary: #52525b;
-      --text-muted: #8b92a0;
+      --text-primary: #120e25;
+      --text-secondary: #4b4862;
+      --text-muted: #827e9c;
       
-      --primary: #9333ea;
-      --primary-rgb: 147, 51, 234;
+      --primary: #7c3aed;
+      --primary-rgb: 124, 58, 237;
       --accent: #db2777;
       --accent-blush: #fbcfe8;
       
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.03);
-      --shadow-md: 0 10px 30px rgba(147, 51, 234, 0.05);
-      --shadow-lg: 0 20px 40px rgba(147, 51, 234, 0.08);
-      --shadow-glow: 0 0 20px rgba(147, 51, 234, 0.12);
+      --shadow-sm: 0 2px 10px rgba(124, 58, 237, 0.02);
+      --shadow-md: 0 10px 30px rgba(124, 58, 237, 0.04);
+      --shadow-lg: 0 20px 45px rgba(124, 58, 237, 0.07);
+      --shadow-glow: 0 0 25px rgba(124, 58, 237, 0.15);
     }
 
     /* ==========================================
@@ -96,6 +96,67 @@
       overflow-x: hidden;
       transition: var(--transition);
       line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Modern digital background overlays */
+    .glow-blob {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.05; /* very subtle in dark mode */
+      pointer-events: none;
+      z-index: -1;
+      transition: var(--transition);
+    }
+    body.light-mode .glow-blob {
+      opacity: 0.14; /* slightly more visible in light mode */
+    }
+    .glow-blob-1 {
+      top: 5%;
+      right: -10%;
+      background: radial-gradient(circle, #a855f7 0%, #6366f1 70%, transparent 100%);
+    }
+    .glow-blob-2 {
+      top: 40%;
+      left: -20%;
+      background: radial-gradient(circle, #ec4899 0%, #10b981 70%, transparent 100%);
+      opacity: 0.04;
+    }
+    body.light-mode .glow-blob-2 {
+      opacity: 0.08;
+    }
+    .glow-blob-3 {
+      bottom: 5%;
+      right: -10%;
+      background: radial-gradient(circle, #6366f1 0%, #a855f7 70%, transparent 100%);
+      opacity: 0.04;
+    }
+    body.light-mode .glow-blob-3 {
+      opacity: 0.1;
+    }
+
+    /* Cyber Grid effect */
+    .glow-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: 80px 80px;
+      background-image: 
+        linear-gradient(to right, rgba(147, 51, 234, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(147, 51, 234, 0.02) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: -1;
+    }
+    body.light-mode .glow-grid {
+      background-image: 
+        linear-gradient(to right, rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(124, 58, 237, 0.03) 1px, transparent 1px);
     }
 
     a {
@@ -358,6 +419,7 @@
       padding: 4rem 6rem;
       position: relative;
       overflow: hidden;
+      z-index: 2;
     }
 
     .hero-bg-overlay {
@@ -372,13 +434,24 @@
       z-index: 1;
     }
 
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      z-index: 2;
+    }
+
     .hero-content {
-      max-width: 800px;
-      text-align: center;
+      max-width: 100%;
+      text-align: left;
       z-index: 2;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
     }
 
     .hero-welcome-badge {
@@ -421,6 +494,116 @@
     .hero-buttons {
       display: flex;
       gap: 1.2rem;
+    }
+
+    .hero-image-area {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .hero-image-card {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-lg), 0 20px 50px rgba(124, 58, 237, 0.15);
+      transition: var(--transition);
+      animation: float-slow 6s ease-in-out infinite;
+    }
+
+    body.light-mode .hero-image-card {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(124, 58, 237, 0.15);
+    }
+
+    body.dark-mode .hero-image-card {
+      background: rgba(20, 18, 30, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: var(--shadow-lg), 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-image-card img {
+      width: 100%;
+      height: 440px;
+      display: block;
+      border-radius: calc(var(--radius-lg) - 8px);
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    /* Floating badges */
+    .floating-badge {
+      position: absolute;
+      padding: 0.65rem 0.95rem;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(124, 58, 237, 0.12);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      z-index: 10;
+      transition: var(--transition);
+      animation: float-badge 4s ease-in-out infinite alternate;
+    }
+
+    body.dark-mode .floating-badge {
+      background: rgba(20, 18, 30, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #f3f4f6;
+    }
+
+    .floating-badge-1 {
+      top: 15%;
+      left: -10%;
+      animation-delay: 0s;
+    }
+
+    .floating-badge-2 {
+      bottom: 12%;
+      right: -8%;
+      animation-delay: 1.5s;
+    }
+
+    .floating-badge-3 {
+      top: -5%;
+      right: 12%;
+      background: var(--primary-gradient);
+      color: white !important;
+      border: none;
+      animation-delay: 0.7s;
+    }
+
+    .floating-badge svg, .floating-badge span.icon {
+      width: 16px;
+      height: 16px;
+      color: var(--primary);
+    }
+    
+    .floating-badge-3 svg {
+      color: white !important;
+    }
+
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(1deg); }
+    }
+
+    @keyframes float-badge {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(-6px) scale(1.02); }
     }
 
     .btn-secondary {
@@ -526,23 +709,58 @@
       background-color: var(--bg-card);
       border: 1px solid var(--border-card);
       border-radius: var(--radius-lg);
-      padding: 3rem;
+      padding: 0;
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      overflow: hidden;
       box-shadow: var(--shadow-md);
+      height: 480px;
+    }
+
+    .about-image-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .about-image-card:hover .about-image-img {
+      transform: scale(1.02);
+    }
+
+    .about-image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2.2rem;
+      background: linear-gradient(to top, rgba(8, 7, 12, 0.95) 45%, rgba(8, 7, 12, 0.4) 80%, transparent 100%);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 2;
+    }
+
+    body.light-mode .about-image-overlay {
+      background: linear-gradient(to top, rgba(247, 246, 250, 0.98) 45%, rgba(247, 246, 250, 0.4) 80%, transparent 100%);
+      color: var(--text-primary);
     }
 
     .about-quote {
       font-family: var(--font-title);
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       font-style: italic;
       font-weight: 500;
       line-height: 1.5;
-      color: var(--text-primary);
+      color: #ffffff;
       border-left: 4px solid var(--primary);
-      padding-left: 1.5rem;
+      padding-left: 1.2rem;
+    }
+
+    body.light-mode .about-quote {
+      color: var(--text-primary);
     }
 
     /* ==========================================
@@ -833,7 +1051,8 @@
     }
 
     body.light-mode .input-text, body.light-mode .textarea-text {
-      background-color: rgba(0, 0, 0, 0.02);
+      background-color: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(124, 58, 237, 0.12);
     }
 
     .input-text:focus, .textarea-text:focus {
@@ -874,6 +1093,8 @@
       transition: var(--transition);
       position: relative;
       overflow: hidden;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .card::before {
@@ -1534,8 +1755,22 @@
         padding: 4rem 2rem;
       }
 
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .hero-content {
+        text-align: center;
+        align-items: center;
+      }
+
       .hero-content h2 {
         font-size: 2.6rem;
+      }
+
+      .hero-image-area {
+        margin-top: 2rem;
       }
 
       .about-section, .services-section, .contact-section {
@@ -1548,7 +1783,13 @@
     }
   </style>
 </head>
-<body>
+<body class="light-mode">
+
+  <!-- Modern digital background overlays -->
+  <div class="glow-grid"></div>
+  <div class="glow-blob glow-blob-1"></div>
+  <div class="glow-blob glow-blob-2"></div>
+  <div class="glow-blob glow-blob-3"></div>
 
   <!-- Sticky Top Navigation -->
   <header class="top-nav">
@@ -1675,15 +1916,36 @@
     <section class="portal-section active" id="sec-home">
       <div class="hero-section">
         <div class="hero-bg-overlay"></div>
-        <div class="hero-content">
-          <div class="hero-welcome-badge">Planejamento & Educação</div>
-          <h2>Equilíbrio, Autonomia e <span>Liberdade Financeira</span></h2>
-          <p>
-            Um ambiente acolhedor e estratégico projetado para apoiar mulheres (e também homens) a construírem um relacionamento saudável com o dinheiro e planejarem o futuro sem ansiedade.
-          </p>
-          <div class="hero-buttons">
-            <button class="btn-primary" style="padding: 0.9rem 2rem; font-size: 1rem;" onclick="switchSection('simulators')">Testar Simuladores Gratuitos</button>
-            <button class="btn-secondary" style="padding: 0.9rem 2rem; font-size: 1rem;" onclick="switchSection('about')">Conhecer a Flávia</button>
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-welcome-badge">Planejamento & Educação</div>
+            <h2>Equilíbrio, Autonomia e <span>Liberdade Financeira</span></h2>
+            <p>
+              Um ambiente acolhedor e estratégico projetado para apoiar mulheres (e também homens) a construírem um relacionamento saudável com o dinheiro e planejarem o futuro sem ansiedade.
+            </p>
+            <div class="hero-buttons">
+              <button class="btn-primary" style="padding: 0.9rem 2rem; font-size: 1rem;" onclick="switchSection('simulators')">Testar Simuladores Gratuitos</button>
+              <button class="btn-secondary" style="padding: 0.9rem 2rem; font-size: 1rem;" onclick="switchSection('about')">Conhecer a Flávia</button>
+            </div>
+          </div>
+          
+          <div class="hero-image-area">
+            <div class="hero-image-card">
+              <!-- Floating digital-themed badges -->
+              <div class="floating-badge floating-badge-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                <span>Autonomia</span>
+              </div>
+              <div class="floating-badge floating-badge-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Segurança</span>
+              </div>
+              <div class="floating-badge floating-badge-3">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Liberdade</span>
+              </div>
+              <img src="fotos/frontal.jpeg" alt="Flávia - Planejamento Financeiro">
+            </div>
           </div>
         </div>
       </div>
@@ -1724,12 +1986,18 @@
           </div>
           
           <div class="about-image-card">
-            <div class="about-quote">
-              "Dinheiro não é o objetivo final. Dinheiro é a ferramenta para que você possa viver a vida sob os seus próprios termos."
-            </div>
-            <div style="border-top: 1px solid var(--border-card); padding-top: 1.5rem;">
-              <h5 style="font-family: var(--font-title); font-size: 1.15rem; font-weight: 700;">Flávia</h5>
-              <span style="font-size: 0.85rem; color: var(--text-secondary);">Fundadora, Mentora & Planejadora Estratégica</span>
+            <img class="about-image-img" src="fotos/trabalhando.jpeg" alt="Flávia trabalhando">
+            <div class="about-image-overlay">
+              <div class="about-quote">
+                "Dinheiro não é o objetivo final. Dinheiro é a ferramenta para que você possa viver a vida sob os seus próprios termos."
+              </div>
+              <div style="border-top: 1px solid var(--border-card); padding-top: 1rem; display: flex; align-items: center; gap: 1rem;">
+                <img src="fotos/perfil.jpeg" alt="Flávia avatar" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); box-shadow: var(--shadow-sm);">
+                <div>
+                  <h5 style="font-family: var(--font-title); font-size: 1.1rem; font-weight: 700; margin: 0; line-height: 1.2;">Flávia</h5>
+                  <span style="font-size: 0.8rem; color: var(--text-secondary);">Fundadora &amp; Planejadora Estratégica</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2439,7 +2707,7 @@
     const state = {
       activeSection: 'home',
       activeSimTab: 'dashboard',
-      theme: 'dark',
+      theme: 'light',
       userProfile: 'Não Iniciado',
       thermometerScore: 5.0,
       profileScore: 0,
